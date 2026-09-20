@@ -1,0 +1,218 @@
+{
+  "dataset": "自建模拟/脱敏数据（鲁棒性对照组）",
+  "n_samples": 400,
+  "n_features": 8,
+  "risk_ratio": 0.2975,
+  "main_k": 31,
+  "k_scan": [
+    {
+      "k": 1,
+      "loo_accuracy": 0.8025,
+      "loo_precision": 0.65873,
+      "loo_recall": 0.697479,
+      "loo_f1": 0.677551
+    },
+    {
+      "k": 3,
+      "loo_accuracy": 0.8125,
+      "loo_precision": 0.689655,
+      "loo_recall": 0.672269,
+      "loo_f1": 0.680851
+    },
+    {
+      "k": 5,
+      "loo_accuracy": 0.8475,
+      "loo_precision": 0.758929,
+      "loo_recall": 0.714286,
+      "loo_f1": 0.735931
+    },
+    {
+      "k": 7,
+      "loo_accuracy": 0.8575,
+      "loo_precision": 0.781818,
+      "loo_recall": 0.722689,
+      "loo_f1": 0.751092
+    },
+    {
+      "k": 9,
+      "loo_accuracy": 0.85,
+      "loo_precision": 0.780952,
+      "loo_recall": 0.689076,
+      "loo_f1": 0.732143
+    },
+    {
+      "k": 11,
+      "loo_accuracy": 0.85,
+      "loo_precision": 0.775701,
+      "loo_recall": 0.697479,
+      "loo_f1": 0.734513
+    },
+    {
+      "k": 15,
+      "loo_accuracy": 0.8575,
+      "loo_precision": 0.787037,
+      "loo_recall": 0.714286,
+      "loo_f1": 0.748899
+    },
+    {
+      "k": 21,
+      "loo_accuracy": 0.86,
+      "loo_precision": 0.788991,
+      "loo_recall": 0.722689,
+      "loo_f1": 0.754386
+    },
+    {
+      "k": 31,
+      "loo_accuracy": 0.885,
+      "loo_precision": 0.841121,
+      "loo_recall": 0.756303,
+      "loo_f1": 0.79646
+    }
+  ],
+  "loo_knn": {
+    "model": "knn_loo_k31",
+    "n": 400,
+    "confusion_matrix": [
+      [
+        264,
+        17
+      ],
+      [
+        29,
+        90
+      ]
+    ],
+    "counts": {
+      "TP": 90,
+      "TN": 264,
+      "FP": 17,
+      "FN": 29
+    },
+    "metrics": {
+      "TP": 90.0,
+      "TN": 264.0,
+      "FP": 17.0,
+      "FN": 29.0,
+      "accuracy": 0.885,
+      "precision": 0.841121,
+      "recall": 0.756303,
+      "f1": 0.79646,
+      "specificity": 0.939502,
+      "npv": 0.901024,
+      "balanced_accuracy": 0.847902
+    },
+    "f1_check": 0.79646,
+    "support": {
+      "正常(0)": 281,
+      "需关注(1)": 119
+    },
+    "pred_distribution": {
+      "预测正常(0)": 293,
+      "预测需关注(1)": 107
+    }
+  },
+  "split10_knn": {
+    "accuracy": {
+      "mean": 0.858333,
+      "std": 0.030681,
+      "min": 0.791667,
+      "max": 0.9
+    },
+    "precision": {
+      "mean": 0.76859,
+      "std": 0.094412,
+      "min": 0.615385,
+      "max": 0.892857
+    },
+    "recall": {
+      "mean": 0.761947,
+      "std": 0.052837,
+      "min": 0.684211,
+      "max": 0.825
+    },
+    "f1": {
+      "mean": 0.761634,
+      "std": 0.053205,
+      "min": 0.657534,
+      "max": 0.823529
+    },
+    "specificity": {
+      "mean": 0.899595,
+      "std": 0.044278,
+      "min": 0.825581,
+      "max": 0.964286
+    },
+    "balanced_accuracy": {
+      "mean": 0.830771,
+      "std": 0.031095,
+      "min": 0.765732,
+      "max": 0.870588
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          757,
+          85
+        ],
+        [
+          85,
+          273
+        ]
+      ]
+    }
+  },
+  "split10_logreg": {
+    "accuracy": {
+      "mean": 0.854167,
+      "std": 0.032926,
+      "min": 0.791667,
+      "max": 0.891667
+    },
+    "precision": {
+      "mean": 0.753033,
+      "std": 0.089647,
+      "min": 0.615385,
+      "max": 0.848485
+    },
+    "recall": {
+      "mean": 0.770703,
+      "std": 0.046776,
+      "min": 0.705882,
+      "max": 0.857143
+    },
+    "f1": {
+      "mean": 0.758892,
+      "std": 0.053322,
+      "min": 0.657534,
+      "max": 0.825
+    },
+    "specificity": {
+      "mean": 0.890067,
+      "std": 0.044747,
+      "min": 0.825581,
+      "max": 0.941176
+    },
+    "balanced_accuracy": {
+      "mean": 0.830385,
+      "std": 0.031293,
+      "min": 0.765732,
+      "max": 0.86875
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          749,
+          93
+        ],
+        [
+          82,
+          276
+        ]
+      ]
+    }
+  },
+  "backend": "sklearn",
+  "backend_description": "knn: sklearn 实现（scikit-learn 1.7.2）—— 主模型承担核心功能",
+  "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。",
+  "timestamp": "2026-09-20 09:02:01"
+}

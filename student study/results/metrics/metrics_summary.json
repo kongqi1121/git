@@ -1,0 +1,736 @@
+{
+  "dataset": "UCI Student Performance（真实公开数据，主数据）",
+  "n_splits": 10,
+  "seed": 42,
+  "timestamp": "2026-09-20 09:06:03",
+  "backend": "sklearn",
+  "backend_description": "knn: sklearn 实现（scikit-learn 1.7.2）—— 主模型承担核心功能",
+  "sklearn_version": "1.7.2",
+  "label_rule": "risk_label = 1 if G3 < 10 else 0",
+  "n_samples": 1044,
+  "n_students": 668,
+  "risk_ratio": 0.2203,
+  "risk_ratio_by_subject": {
+    "mat": 0.3291,
+    "por": 0.1541
+  },
+  "feature_names": [
+    "age",
+    "Medu",
+    "Fedu",
+    "traveltime",
+    "studytime",
+    "failures",
+    "famrel",
+    "freetime",
+    "goout",
+    "Dalc",
+    "Walc",
+    "health",
+    "absences",
+    "school_MS",
+    "sex_M",
+    "address_R",
+    "famsize_LE3",
+    "Pstatus_A",
+    "Mjob_teacher",
+    "Mjob_health",
+    "Mjob_services",
+    "Mjob_at_home",
+    "Fjob_teacher",
+    "Fjob_health",
+    "Fjob_services",
+    "Fjob_at_home",
+    "reason_home",
+    "reason_reputation",
+    "reason_other",
+    "guardian_father",
+    "guardian_other",
+    "schoolsup",
+    "famsup",
+    "paid",
+    "activities",
+    "nursery",
+    "higher",
+    "internet",
+    "romantic"
+  ],
+  "n_features_main": 39,
+  "majority_baseline_accuracy": 0.7797,
+  "k_scan": [
+    {
+      "k": 1,
+      "logo_accuracy": 0.734674,
+      "logo_precision": 0.385366,
+      "logo_recall": 0.343478,
+      "logo_f1": 0.363218,
+      "split_acc_mean": 0.74219,
+      "split_acc_std": 0.025278,
+      "split_prec_mean": 0.431205,
+      "split_prec_std": 0.04149,
+      "split_rec_mean": 0.373121,
+      "split_rec_std": 0.055098,
+      "split_f1_mean": 0.398424,
+      "split_f1_std": 0.04036
+    },
+    {
+      "k": 3,
+      "logo_accuracy": 0.772031,
+      "logo_precision": 0.468254,
+      "logo_recall": 0.256522,
+      "logo_f1": 0.331461,
+      "split_acc_mean": 0.768057,
+      "split_acc_std": 0.016508,
+      "split_prec_mean": 0.492397,
+      "split_prec_std": 0.061773,
+      "split_rec_mean": 0.263492,
+      "split_rec_std": 0.045418,
+      "split_f1_mean": 0.341518,
+      "split_f1_std": 0.046982
+    },
+    {
+      "k": 5,
+      "logo_accuracy": 0.774904,
+      "logo_precision": 0.469136,
+      "logo_recall": 0.165217,
+      "logo_f1": 0.244373,
+      "split_acc_mean": 0.774763,
+      "split_acc_std": 0.021513,
+      "split_prec_mean": 0.527674,
+      "split_prec_std": 0.073738,
+      "split_rec_mean": 0.223889,
+      "split_rec_std": 0.045065,
+      "split_f1_mean": 0.312047,
+      "split_f1_std": 0.051387
+    },
+    {
+      "k": 7,
+      "logo_accuracy": 0.780651,
+      "logo_precision": 0.506849,
+      "logo_recall": 0.16087,
+      "logo_f1": 0.244224,
+      "split_acc_mean": 0.777927,
+      "split_acc_std": 0.018203,
+      "split_prec_mean": 0.554062,
+      "split_prec_std": 0.102412,
+      "split_rec_mean": 0.177235,
+      "split_rec_std": 0.050006,
+      "split_f1_mean": 0.266059,
+      "split_f1_std": 0.062366
+    },
+    {
+      "k": 9,
+      "logo_accuracy": 0.783525,
+      "logo_precision": 0.529412,
+      "logo_recall": 0.156522,
+      "logo_f1": 0.241611,
+      "split_acc_mean": 0.776964,
+      "split_acc_std": 0.018172,
+      "split_prec_mean": 0.558728,
+      "split_prec_std": 0.112971,
+      "split_rec_mean": 0.152801,
+      "split_rec_std": 0.035088,
+      "split_f1_mean": 0.238554,
+      "split_f1_std": 0.050426
+    },
+    {
+      "k": 11,
+      "logo_accuracy": 0.781609,
+      "logo_precision": 0.516667,
+      "logo_recall": 0.134783,
+      "logo_f1": 0.213793,
+      "split_acc_mean": 0.777959,
+      "split_acc_std": 0.022014,
+      "split_prec_mean": 0.581831,
+      "split_prec_std": 0.099113,
+      "split_rec_mean": 0.129744,
+      "split_rec_std": 0.038386,
+      "split_f1_mean": 0.209869,
+      "split_f1_std": 0.053575
+    },
+    {
+      "k": 15,
+      "logo_accuracy": 0.781609,
+      "logo_precision": 0.520833,
+      "logo_recall": 0.108696,
+      "logo_f1": 0.179856,
+      "split_acc_mean": 0.779237,
+      "split_acc_std": 0.020518,
+      "split_prec_mean": 0.62343,
+      "split_prec_std": 0.126813,
+      "split_rec_mean": 0.110192,
+      "split_rec_std": 0.032993,
+      "split_f1_mean": 0.185318,
+      "split_f1_std": 0.048862
+    },
+    {
+      "k": 21,
+      "logo_accuracy": 0.783525,
+      "logo_precision": 0.5625,
+      "logo_recall": 0.078261,
+      "logo_f1": 0.137405,
+      "split_acc_mean": 0.781483,
+      "split_acc_std": 0.020917,
+      "split_prec_mean": 0.680293,
+      "split_prec_std": 0.118044,
+      "split_rec_mean": 0.095094,
+      "split_rec_std": 0.038012,
+      "split_f1_mean": 0.164758,
+      "split_f1_std": 0.060672
+    },
+    {
+      "k": 31,
+      "logo_accuracy": 0.786398,
+      "logo_precision": 0.64,
+      "logo_recall": 0.069565,
+      "logo_f1": 0.12549,
+      "split_acc_mean": 0.774773,
+      "split_acc_std": 0.021041,
+      "split_prec_mean": 0.578362,
+      "split_prec_std": 0.160491,
+      "split_rec_mean": 0.057697,
+      "split_rec_std": 0.034333,
+      "split_f1_mean": 0.103659,
+      "split_f1_std": 0.058936
+    }
+  ],
+  "k_selection": {
+    "chosen_k": 1,
+    "best_logo_f1": 0.363218,
+    "excluded_by_recall": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      15,
+      21,
+      31
+    ],
+    "near_candidates": [
+      1
+    ],
+    "reason": "风险预警的核心是'抓得到人'：先排除 LOGO recall < 0.30 的候选 （[3, 5, 7, 9, 11, 15, 21, 31]），再在剩余候选中取 LOGO F1 最高者（0.3632）；F1 相差 0.01 内取 k 较大者（投票人数更多、概率分档更细），最终 k = 1"
+  },
+  "main_k": 1,
+  "logo_knn": {
+    "model": "knn_LOGO",
+    "n": 1044,
+    "confusion_matrix": [
+      [
+        688,
+        126
+      ],
+      [
+        151,
+        79
+      ]
+    ],
+    "counts": {
+      "TP": 79,
+      "TN": 688,
+      "FP": 126,
+      "FN": 151
+    },
+    "metrics": {
+      "TP": 79.0,
+      "TN": 688.0,
+      "FP": 126.0,
+      "FN": 151.0,
+      "accuracy": 0.734674,
+      "precision": 0.385366,
+      "recall": 0.343478,
+      "f1": 0.363218,
+      "specificity": 0.845209,
+      "npv": 0.820024,
+      "balanced_accuracy": 0.594344
+    },
+    "f1_check": 0.363218,
+    "support": {
+      "正常(0)": 814,
+      "需关注(1)": 230
+    },
+    "pred_distribution": {
+      "预测正常(0)": 839,
+      "预测需关注(1)": 205
+    }
+  },
+  "split10_knn": {
+    "accuracy": {
+      "mean": 0.74219,
+      "std": 0.025278,
+      "min": 0.697368,
+      "max": 0.77918
+    },
+    "precision": {
+      "mean": 0.431205,
+      "std": 0.04149,
+      "min": 0.375,
+      "max": 0.509434
+    },
+    "recall": {
+      "mean": 0.373121,
+      "std": 0.055098,
+      "min": 0.319444,
+      "max": 0.506667
+    },
+    "f1": {
+      "mean": 0.398424,
+      "std": 0.04036,
+      "min": 0.345324,
+      "max": 0.484076
+    },
+    "specificity": {
+      "mean": 0.852197,
+      "std": 0.026996,
+      "min": 0.816667,
+      "max": 0.894309
+    },
+    "balanced_accuracy": {
+      "mean": 0.612659,
+      "std": 0.025341,
+      "min": 0.578033,
+      "max": 0.661667
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          2059,
+          356
+        ],
+        [
+          452,
+          269
+        ]
+      ]
+    }
+  },
+  "split10_logreg": {
+    "accuracy": {
+      "mean": 0.788525,
+      "std": 0.018072,
+      "min": 0.759868,
+      "max": 0.812698
+    },
+    "precision": {
+      "mean": 0.592397,
+      "std": 0.056394,
+      "min": 0.5,
+      "max": 0.657143
+    },
+    "recall": {
+      "mean": 0.264417,
+      "std": 0.041613,
+      "min": 0.2,
+      "max": 0.323944
+    },
+    "f1": {
+      "mean": 0.363586,
+      "std": 0.04313,
+      "min": 0.304762,
+      "max": 0.433962
+    },
+    "specificity": {
+      "mean": 0.945444,
+      "std": 0.011963,
+      "min": 0.930328,
+      "max": 0.959821
+    },
+    "balanced_accuracy": {
+      "mean": 0.60493,
+      "std": 0.019411,
+      "min": 0.578497,
+      "max": 0.637582
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          2283,
+          132
+        ],
+        [
+          531,
+          190
+        ]
+      ]
+    }
+  },
+  "logo_logreg": {
+    "model": "logreg_LOGO",
+    "n": 1044,
+    "confusion_matrix": [
+      [
+        769,
+        45
+      ],
+      [
+        175,
+        55
+      ]
+    ],
+    "counts": {
+      "TP": 55,
+      "TN": 769,
+      "FP": 45,
+      "FN": 175
+    },
+    "metrics": {
+      "TP": 55.0,
+      "TN": 769.0,
+      "FP": 45.0,
+      "FN": 175.0,
+      "accuracy": 0.789272,
+      "precision": 0.55,
+      "recall": 0.23913,
+      "f1": 0.333333,
+      "specificity": 0.944717,
+      "npv": 0.814619,
+      "balanced_accuracy": 0.591924
+    },
+    "f1_check": 0.333333,
+    "support": {
+      "正常(0)": 814,
+      "需关注(1)": 230
+    },
+    "pred_distribution": {
+      "预测正常(0)": 944,
+      "预测需关注(1)": 100
+    }
+  },
+  "cross_subject_knn": {
+    "mat2por": {
+      "model": "knn_trainmat_testpor",
+      "n": 649,
+      "confusion_matrix": [
+        [
+          376,
+          173
+        ],
+        [
+          47,
+          53
+        ]
+      ],
+      "counts": {
+        "TP": 53,
+        "TN": 376,
+        "FP": 173,
+        "FN": 47
+      },
+      "metrics": {
+        "TP": 53.0,
+        "TN": 376.0,
+        "FP": 173.0,
+        "FN": 47.0,
+        "accuracy": 0.661017,
+        "precision": 0.234513,
+        "recall": 0.53,
+        "f1": 0.325153,
+        "specificity": 0.684882,
+        "npv": 0.888889,
+        "balanced_accuracy": 0.607441
+      },
+      "f1_check": 0.325153,
+      "support": {
+        "正常(0)": 549,
+        "需关注(1)": 100
+      },
+      "pred_distribution": {
+        "预测正常(0)": 423,
+        "预测需关注(1)": 226
+      },
+      "direction": "mat → por",
+      "train_risk_ratio": 0.3291,
+      "test_risk_ratio": 0.1541
+    },
+    "por2mat": {
+      "model": "knn_trainpor_testmat",
+      "n": 395,
+      "confusion_matrix": [
+        [
+          254,
+          11
+        ],
+        [
+          106,
+          24
+        ]
+      ],
+      "counts": {
+        "TP": 24,
+        "TN": 254,
+        "FP": 11,
+        "FN": 106
+      },
+      "metrics": {
+        "TP": 24.0,
+        "TN": 254.0,
+        "FP": 11.0,
+        "FN": 106.0,
+        "accuracy": 0.703797,
+        "precision": 0.685714,
+        "recall": 0.184615,
+        "f1": 0.290909,
+        "specificity": 0.958491,
+        "npv": 0.705556,
+        "balanced_accuracy": 0.571553
+      },
+      "f1_check": 0.290909,
+      "support": {
+        "正常(0)": 265,
+        "需关注(1)": 130
+      },
+      "pred_distribution": {
+        "预测正常(0)": 360,
+        "预测需关注(1)": 35
+      },
+      "direction": "por → mat",
+      "train_risk_ratio": 0.1541,
+      "test_risk_ratio": 0.3291
+    }
+  },
+  "cross_subject_logreg": {
+    "mat2por": {
+      "model": "logreg_trainmat_testpor",
+      "n": 649,
+      "confusion_matrix": [
+        [
+          449,
+          100
+        ],
+        [
+          54,
+          46
+        ]
+      ],
+      "counts": {
+        "TP": 46,
+        "TN": 449,
+        "FP": 100,
+        "FN": 54
+      },
+      "metrics": {
+        "TP": 46.0,
+        "TN": 449.0,
+        "FP": 100.0,
+        "FN": 54.0,
+        "accuracy": 0.762712,
+        "precision": 0.315068,
+        "recall": 0.46,
+        "f1": 0.373984,
+        "specificity": 0.817851,
+        "npv": 0.892644,
+        "balanced_accuracy": 0.638925
+      },
+      "f1_check": 0.373984,
+      "support": {
+        "正常(0)": 549,
+        "需关注(1)": 100
+      },
+      "pred_distribution": {
+        "预测正常(0)": 503,
+        "预测需关注(1)": 146
+      },
+      "direction": "mat → por",
+      "train_risk_ratio": 0.3291,
+      "test_risk_ratio": 0.1541
+    },
+    "por2mat": {
+      "model": "logreg_trainpor_testmat",
+      "n": 395,
+      "confusion_matrix": [
+        [
+          252,
+          13
+        ],
+        [
+          108,
+          22
+        ]
+      ],
+      "counts": {
+        "TP": 22,
+        "TN": 252,
+        "FP": 13,
+        "FN": 108
+      },
+      "metrics": {
+        "TP": 22.0,
+        "TN": 252.0,
+        "FP": 13.0,
+        "FN": 108.0,
+        "accuracy": 0.693671,
+        "precision": 0.628571,
+        "recall": 0.169231,
+        "f1": 0.266667,
+        "specificity": 0.950943,
+        "npv": 0.7,
+        "balanced_accuracy": 0.560087
+      },
+      "f1_check": 0.266667,
+      "support": {
+        "正常(0)": 265,
+        "需关注(1)": 130
+      },
+      "pred_distribution": {
+        "预测正常(0)": 360,
+        "预测需关注(1)": 35
+      },
+      "direction": "por → mat",
+      "train_risk_ratio": 0.1541,
+      "test_risk_ratio": 0.3291
+    }
+  },
+  "tuned_threshold": {
+    "threshold": 0.2,
+    "chosen_per_split": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "f1_mean": 0.3984,
+    "f1_std": 0.0404,
+    "recall_mean": 0.3731,
+    "recall_std": 0.0551,
+    "precision_mean": 0.4312,
+    "precision_std": 0.0415,
+    "note": "阈值只在训练集内部用 3 折分组交叉验证选择，测试集标签全程不参与选择；调低阈值可显著提高 recall（少漏报），代价是 precision 下降（多误报）"
+  },
+  "ablation_early_grades": [
+    {
+      "setting": "主口径：不含 G1/G2（可用）",
+      "n_features": 39,
+      "logo_accuracy": 0.7347,
+      "logo_precision": 0.3854,
+      "logo_recall": 0.3435,
+      "logo_f1": 0.3632
+    },
+    {
+      "setting": "消融口径：加入 G1/G2（标签泄漏，不可用）",
+      "n_features": 42,
+      "logo_accuracy": 0.8027,
+      "logo_precision": 0.5619,
+      "logo_recall": 0.4739,
+      "logo_f1": 0.5142
+    },
+    {
+      "setting": "极端示例：仅用 G2 单特征阈值",
+      "n_features": 1,
+      "logo_accuracy": 0.9167,
+      "logo_precision": "",
+      "logo_recall": "",
+      "logo_f1": ""
+    }
+  ],
+  "elapsed_sec": 8.2,
+  "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。",
+  "citation": "Cortez, P., & Silva, A. (2008). Using Data Mining to Predict Secondary School Student Performance. In Proceedings of 5th FUTure BUsiness TEChnology Conference (FUBUTEC 2008), pp. 5-12, Porto, Portugal. UCI ML Repository, id 320, DOI 10.24432/C5TG7T. Licensed under CC BY 4.0.",
+  "metrics_table": [
+    {
+      "model": "KNN(k=1)",
+      "protocol": "留一组交叉验证 LOGO（主口径）",
+      "accuracy": 0.7347,
+      "precision": 0.3854,
+      "recall": 0.3435,
+      "f1": 0.3632,
+      "specificity": 0.8452,
+      "balanced_accuracy": 0.5943,
+      "TP": 79,
+      "TN": 688,
+      "FP": 126,
+      "FN": 151
+    },
+    {
+      "model": "KNN(k=1)",
+      "protocol": "10 次分组随机划分（均值）",
+      "accuracy": 0.7422,
+      "precision": 0.4312,
+      "recall": 0.3731,
+      "f1": 0.3984,
+      "specificity": 0.8522,
+      "balanced_accuracy": 0.6127,
+      "TP": "",
+      "TN": "",
+      "FP": "",
+      "FN": ""
+    },
+    {
+      "model": "逻辑回归",
+      "protocol": "留一组交叉验证 LOGO",
+      "accuracy": 0.7893,
+      "precision": 0.55,
+      "recall": 0.2391,
+      "f1": 0.3333,
+      "specificity": 0.9447,
+      "balanced_accuracy": 0.5919,
+      "TP": 55,
+      "TN": 769,
+      "FP": 45,
+      "FN": 175
+    },
+    {
+      "model": "逻辑回归",
+      "protocol": "10 次分组随机划分（均值）",
+      "accuracy": 0.7885,
+      "precision": 0.5924,
+      "recall": 0.2644,
+      "f1": 0.3636,
+      "specificity": 0.9454,
+      "balanced_accuracy": 0.6049,
+      "TP": "",
+      "TN": "",
+      "FP": "",
+      "FN": ""
+    },
+    {
+      "model": "KNN(k=1)",
+      "protocol": "课程外推 mat→por",
+      "accuracy": 0.661,
+      "precision": 0.2345,
+      "recall": 0.53,
+      "f1": 0.3252,
+      "specificity": 0.6849,
+      "balanced_accuracy": 0.6074,
+      "TP": 53,
+      "TN": 376,
+      "FP": 173,
+      "FN": 47
+    },
+    {
+      "model": "KNN(k=1)",
+      "protocol": "课程外推 por→mat",
+      "accuracy": 0.7038,
+      "precision": 0.6857,
+      "recall": 0.1846,
+      "f1": 0.2909,
+      "specificity": 0.9585,
+      "balanced_accuracy": 0.5716,
+      "TP": 24,
+      "TN": 254,
+      "FP": 11,
+      "FN": 106
+    }
+  ],
+  "manual_verification": {
+    "counts": {
+      "TP": 79,
+      "TN": 688,
+      "FP": 126,
+      "FN": 151
+    },
+    "steps": {
+      "precision": "precision = TP/(TP+FP) = 79/205 = 0.385366",
+      "recall": "recall = TP/(TP+FN) = 79/230 = 0.343478",
+      "accuracy": "accuracy = (TP+TN)/N = (79+688)/1044 = 0.734674",
+      "f1": "F1 = 2PR/(P+R) = 0.363218；交叉验证公式 2TP/(2TP+FP+FN) = 0.363218（两者一致：True）"
+    },
+    "all_passed": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "counts": {
+    "TP": 79,
+    "TN": 688,
+    "FP": 126,
+    "FN": 151
+  },
+  "manual": {
+    "counts": {
+      "TP": 79,
+      "TN": 688,
+      "FP": 126,
+      "FN": 151
+    },
+    "precision_manual": 0.3853658536585366,
+    "recall_manual": 0.34347826086956523,
+    "accuracy_manual": 0.7346743295019157,
+    "f1_manual_formula_a": 0.3632183908045977,
+    "f1_manual_formula_b": 0.3632183908045977,
+    "steps": {
+      "precision": "precision = TP/(TP+FP) = 79/205 = 0.385366",
+      "recall": "recall = TP/(TP+FN) = 79/230 = 0.343478",
+      "accuracy": "accuracy = (TP+TN)/N = (79+688)/1044 = 0.734674",
+      "f1": "F1 = 2PR/(P+R) = 0.363218；交叉验证公式 2TP/(2TP+FP+FN) = 0.363218（两者一致：True）"
+    }
+  },
+  "implementation": {
+    "accuracy": 0.734674,
+    "precision": 0.385366,
+    "recall": 0.343478,
+    "f1": 0.363218,
+    "specificity": 0.845209,
+    "npv": 0.820024,
+    "balanced_accuracy": 0.594344
+  },
+  "checks": {
+    "precision": true,
+    "recall": true,
+    "accuracy": true,
+    "f1_two_formulas": true
+  },
+  "all_passed": true,
+  "steps": {
+    "precision": "precision = TP/(TP+FP) = 79/205 = 0.385366",
+    "recall": "recall = TP/(TP+FN) = 79/230 = 0.343478",
+    "accuracy": "accuracy = (TP+TN)/N = (79+688)/1044 = 0.734674",
+    "f1": "F1 = 2PR/(P+R) = 0.363218；交叉验证公式 2TP/(2TP+FP+FN) = 0.363218（两者一致：True）"
+  },
+  "scope": "UCI 真实数据 LOGO 主口径（KNN k=1，1044 条）"
+}

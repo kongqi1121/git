@@ -1,3 +1,65 @@
-# Local tooling (not part of the project)
+# =========================================================
+# .gitignore —— 校园学生成绩风险预警系统
+# =========================================================
+# 设计原则：
+#   1. 排除"体积大且可一键重新生成"的中间产物（模型文件、原始 CSV、生成的数据集）；
+#   2. **保留 results/** —— 指标 JSON/CSV、图表 PNG、运行日志都是交付物，
+#      老师/同学 clone 后不跑代码也能直接看到实验结果；
+#   3. 排除本地工具与缓存。
+# =========================================================
+
+# ---------- 本地工具（不属于项目） ----------
 .tools/
 .ghconfig/
+
+# ---------- Python 缓存与虚拟环境 ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.conda/
+
+# ---------- 测试与覆盖率 ----------
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ---------- 编辑器 / 系统 ----------
+.vscode/
+.idea/
+*.swp
+*~
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
+
+# ---------- 可一键重新生成的数据（体积大） ----------
+# 说明：本项目位于仓库的子目录 "student study/" 下，因此这里用 `**/` 前缀让规则
+#       在任意层级生效 —— 若写成 `data/uci_raw/`（等价于只匹配仓库根下的 data/），
+#       会匹配不到 `student study/data/uci_raw/`，导致原始数据被误提交。
+# UCI 原始 CSV：由 src/uci_data.py 自动下载，README 中已记录下载地址与 MD5
+**/uci_raw/
+# 生成的主数据集与对照数据集：由 src/uci_data.py、src/generate_data.py 重新生成
+**/uci_student_performance.csv
+**/scores_simulated.csv
+**/scores_new_batch.csv
+**/scores.csv
+
+# ---------- 可一键重新训练的模型文件 ----------
+**/models.npz
+
+# ---------- 其它 ----------
+**/tmp_*.py
+**/scratch_*
