@@ -214,5 +214,5 @@
   "backend": "sklearn",
   "backend_description": "knn: sklearn 实现（scikit-learn 1.7.2）—— 主模型承担核心功能",
   "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。",
-  "timestamp": "2026-09-20 09:02:01"
+  "timestamp": "2026-09-29 08:29:39"
 }

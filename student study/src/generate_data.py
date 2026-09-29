@@ -246,9 +246,17 @@ def _build_report(df: pd.DataFrame, risk_raw: np.ndarray, risk_tau: float,
     return report
 
 
-def save_simulation(df: pd.DataFrame, path: str = cfg.DATA_PATH) -> str:
-    """保存模拟数据到 CSV（utf-8-sig 便于 Excel 直接打开不乱码）。"""
+def save_simulation(df: pd.DataFrame, path: Optional[str] = None) -> str:
+    """
+    保存**模拟数据**到 CSV（utf-8-sig 便于 Excel 直接打开不乱码）。
+
+    默认路径必须是 cfg.SIM_DATA_PATH，**不能**用 cfg.DATA_PATH：
+    v2 起 config.DATA_PATH 已指向 UCI 真实数据集，早期版本因此把模拟数据
+    写进了 data/uci_student_performance.csv，造成主数据集被静默污染
+    （实测后果：v2 流程读到 400×13 的模拟数据后报 KeyError: student_group_id）。
+    """
     cfg.ensure_dirs()
+    path = path or cfg.SIM_DATA_PATH
     out = df.copy()
     out.to_csv(path, index=False, encoding="utf-8-sig")
     return path

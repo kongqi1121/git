@@ -2,7 +2,7 @@
   "dataset": "UCI Student Performance（真实公开数据，主数据）",
   "n_splits": 10,
   "seed": 42,
-  "timestamp": "2026-09-20 09:06:03",
+  "timestamp": "2026-09-29 08:31:52",
   "backend": "sklearn",
   "backend_description": "knn: sklearn 实现（scikit-learn 1.7.2）—— 主模型承担核心功能",
   "sklearn_version": "1.7.2",
@@ -629,7 +629,7 @@
       "logo_f1": ""
     }
   ],
-  "elapsed_sec": 8.2,
+  "elapsed_sec": 9.17,
   "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。",
   "citation": "Cortez, P., & Silva, A. (2008). Using Data Mining to Predict Secondary School Student Performance. In Proceedings of 5th FUTure BUsiness TEChnology Conference (FUBUTEC 2008), pp. 5-12, Porto, Portugal. UCI ML Repository, id 320, DOI 10.24432/C5TG7T. Licensed under CC BY 4.0.",
   "metrics_table": [

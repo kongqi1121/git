@@ -67,8 +67,11 @@ DATASETS = {
 }
 DEFAULT_DATASET = "uci"
 
-# ---- 向后兼容别名（旧代码用 DATA_PATH 指向主数据集）----
-DATA_PATH = UCI_DATA_PATH
+# ---- 向后兼容别名 ----
+# 注意：这里**刻意不再提供 DATA_PATH 别名**。v2 期间曾把 DATA_PATH 指向 UCI 主数据集，
+# 结果让所有沿用 DATA_PATH 的旧代码（尤其是模拟数据生成脚本的默认保存路径）
+# 静默写到了主数据集文件上，造成数据污染。
+# 现在要求调用方显式使用 UCI_DATA_PATH 或 SIM_DATA_PATH，从命名上杜绝混淆。
 NEW_BATCH_PATH = SIM_NEW_BATCH_PATH
 
 # 模型与统计参数文件
@@ -91,6 +94,13 @@ ABLATION_PATH = os.path.join(METRICS_DIR, "ablation_early_grades.csv")
 SIM_COMPARE_PATH = os.path.join(METRICS_DIR, "sim_vs_uci_comparison.csv")
 UCI_REPORT_PATH = os.path.join(METRICS_DIR, "uci_dataset_report.json")
 GROUP_CV_PATH = os.path.join(METRICS_DIR, "group_cv_details.csv")
+
+# v1（legacy）与 v2 的指标汇总必须**分文件存放**：
+# 早期两者都写 METRICS_SUMMARY_PATH，导致只要跑一次 `--auto --legacy`
+# 就会把 v2 的真实数据指标覆盖掉（实测遇到过："读取 metrics_summary.json 时报
+# KeyError: logo_knn"），下游 dashboard_v2 / step_show_metrics_v2 会因此读错口径。
+SIM_METRICS_SUMMARY_PATH = os.path.join(METRICS_DIR, "sim_metrics_summary.json")
+LEGACY_METRICS_SUMMARY_PATH = os.path.join(METRICS_DIR, "metrics_summary_legacy_v1.json")
 
 
 def ensure_dirs() -> None:

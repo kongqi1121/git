@@ -406,6 +406,13 @@ def run_training_eval(main_k: Optional[int] = None,
               f"{'全部通过 ✅' if verify['all_passed'] else '存在不一致 ❌'}")
 
     # ---------------- ⑨ 保存模型与指标 ----------------
+    # 把人工复算结果也写进汇总（与 v2 的 summary 结构保持一致，
+    # 便于统一读取；早期只在独立文件里保存，汇总中查不到）。
+    summary["manual_verification"] = {
+        "counts": verify["counts"], "steps": verify["steps"],
+        "all_passed": verify["all_passed"],
+    }
+    summary["dataset"] = "自建模拟/脱敏数据（v1 口径：手写 KNN 为主模型）"
     save_models(knn_final, lr_final, backend_info["backend"], imputer, scaler)
     save_preprocess_stats(imputer, scaler, extra={
         "main_k": main_k,
@@ -451,7 +458,10 @@ def run_training_eval(main_k: Optional[int] = None,
     summary["risk_level_thresholds"] = cfg.RISK_LEVEL_THRESHOLDS
     summary["elapsed_sec"] = round(time.time() - t0, 2)
 
-    ev.save_json(summary, cfg.METRICS_SUMMARY_PATH)
+    # v1 的汇总写到**独立文件**，不再覆盖 v2 的 metrics_summary.json ——
+    # 两者口径完全不同（v1：模拟数据 + 手写 KNN；v2：UCI 真实数据 + sklearn），
+    # 混写会让下游按错口径读指标（实测遇到过读取时 KeyError: logo_knn）。
+    ev.save_json(summary, cfg.LEGACY_METRICS_SUMMARY_PATH)
 
     if verbose:
         print(f"[8/8] 已保存：模型 → {os.path.relpath(cfg.MODEL_PATH, cfg.BASE_DIR)}；"

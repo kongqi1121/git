@@ -449,6 +449,67 @@ def leave_one_group_out_indices(df: pd.DataFrame):
         yield g, train_idx, test_idx
 
 
+def verify_saved_dataset(path: str = cfg.UCI_DATA_PATH, verbose: bool = False) -> Dict:
+    """
+    校验"已落盘的 UCI 数据集文件"内容是否真的是 UCI 数据。
+
+    【为什么必须做这一步】实测踩过一个严重的数据污染问题：
+    模拟数据生成脚本曾沿用 cfg.DATA_PATH 作为默认保存路径，
+    而 v2 把 DATA_PATH 指向了 UCI 数据集文件 —— 结果是**模拟数据把主数据集覆盖了**。
+    两个文件都是 .csv、都能被 pandas 正常读入，问题因此一路静默传递，
+    直到 v2 流程读到 400 行 × 13 列的模拟数据、找不到 student_group_id 列才暴露。
+    所以这里做一次显式的内容体检，不通过就让调用方重建，而不是带着错数据继续跑。
+    """
+    if not os.path.exists(path):
+        return {"ok": False, "reason": "文件不存在", "path": path}
+    try:
+        head = pd.read_csv(path, encoding="utf-8-sig", nrows=5)
+    except Exception as e:
+        return {"ok": False, "reason": f"读取失败：{type(e).__name__}: {e}", "path": path}
+
+    required_cols = {"subject", TARGET_RAW, LABEL_COLUMN, GROUP_COLUMN,
+                     "student_id", cfg.RISK_LEVEL_COLUMN}
+    missing = sorted(required_cols - set(head.columns))
+    if missing:
+        return {"ok": False, "reason": f"缺少 UCI 必需字段：{missing}",
+                "found_columns": list(head.columns)[:8], "path": path}
+
+    n_rows = sum(1 for _ in open(path, encoding="utf-8-sig")) - 1
+    if n_rows != EXPECTED_TOTAL:
+        return {"ok": False,
+                "reason": f"行数异常：期望 {EXPECTED_TOTAL}，实际 {n_rows}"
+                          f"（疑似被模拟数据或其他内容覆盖）",
+                "n_rows": n_rows, "path": path}
+    try:
+        subjects = set(pd.read_csv(path, encoding="utf-8-sig",
+                                   usecols=["subject"])["subject"].unique())
+    except Exception:
+        subjects = set()
+    if subjects != set(UCI_FILES.keys()):
+        return {"ok": False, "reason": f"课程种类异常：{sorted(subjects)}", "path": path}
+
+    if verbose:
+        print(f"[校验] UCI 数据集内容正常：{n_rows} 行，课程 {sorted(subjects)}")
+    return {"ok": True, "reason": "正常", "n_rows": n_rows, "path": path}
+
+
+def load_saved_dataset(path: str = cfg.UCI_DATA_PATH,
+                       auto_rebuild: bool = True) -> pd.DataFrame:
+    """
+    读取已落盘的 UCI 数据集；**内容校验不通过时自动重建**（除非 auto_rebuild=False）。
+
+    这样即使主数据集文件被误覆盖，流程也能自我修复，而不是带着错误数据继续跑出错误结论。
+    """
+    check = verify_saved_dataset(path)
+    if check["ok"]:
+        return pd.read_csv(path, encoding="utf-8-sig")
+    if not auto_rebuild:
+        raise ValueError(f"UCI 数据集校验未通过：{check['reason']}")
+    print(f"[警告] UCI 数据集校验未通过（{check['reason']}），自动重新构建……")
+    df, _ = build_dataset(verbose=False)
+    return df
+
+
 def main() -> None:
     """命令行入口：下载并构建 UCI 数据集，打印体检报告。"""
     try:

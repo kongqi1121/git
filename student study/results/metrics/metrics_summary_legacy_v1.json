@@ -1,0 +1,799 @@
+{
+  "seed": 42,
+  "n_splits": 10,
+  "timestamp": "2026-09-29 08:30:28",
+  "data_health": {
+    "n_samples": 400,
+    "n_features": 8,
+    "missing_total": 0,
+    "missing_per_feature": {
+      "python": 0,
+      "ml": 0,
+      "cv": 0,
+      "attendance_rate": 0,
+      "homework_submit_rate": 0,
+      "self_study_hours": 0,
+      "score_mean": 0,
+      "score_std": 0
+    },
+    "warnings": []
+  },
+  "n_samples": 400,
+  "feature_columns": [
+    "python",
+    "ml",
+    "cv",
+    "attendance_rate",
+    "homework_submit_rate",
+    "self_study_hours",
+    "score_mean",
+    "score_std"
+  ],
+  "k_scan": [
+    {
+      "k": 1,
+      "loo_accuracy": 0.8025,
+      "loo_precision": 0.65873,
+      "loo_recall": 0.697479,
+      "loo_f1": 0.677551,
+      "split_acc_mean": 0.779167,
+      "split_acc_std": 0.029463,
+      "split_prec_mean": 0.611403,
+      "split_prec_std": 0.063947,
+      "split_rec_mean": 0.704407,
+      "split_rec_std": 0.051614,
+      "split_f1_mean": 0.653989,
+      "split_f1_std": 0.055389
+    },
+    {
+      "k": 3,
+      "loo_accuracy": 0.8125,
+      "loo_precision": 0.689655,
+      "loo_recall": 0.672269,
+      "loo_f1": 0.680851,
+      "split_acc_mean": 0.820833,
+      "split_acc_std": 0.030744,
+      "split_prec_mean": 0.682695,
+      "split_prec_std": 0.074188,
+      "split_rec_mean": 0.743068,
+      "split_rec_std": 0.060005,
+      "split_f1_mean": 0.710123,
+      "split_f1_std": 0.059811
+    },
+    {
+      "k": 5,
+      "loo_accuracy": 0.8475,
+      "loo_precision": 0.758929,
+      "loo_recall": 0.714286,
+      "loo_f1": 0.735931,
+      "split_acc_mean": 0.8425,
+      "split_acc_std": 0.028988,
+      "split_prec_mean": 0.721706,
+      "split_prec_std": 0.069263,
+      "split_rec_mean": 0.76949,
+      "split_rec_std": 0.055295,
+      "split_f1_mean": 0.743432,
+      "split_f1_std": 0.052913
+    },
+    {
+      "k": 7,
+      "loo_accuracy": 0.8575,
+      "loo_precision": 0.781818,
+      "loo_recall": 0.722689,
+      "loo_f1": 0.751092,
+      "split_acc_mean": 0.844167,
+      "split_acc_std": 0.024861,
+      "split_prec_mean": 0.722389,
+      "split_prec_std": 0.062364,
+      "split_rec_mean": 0.775617,
+      "split_rec_std": 0.064792,
+      "split_f1_mean": 0.746351,
+      "split_f1_std": 0.050744
+    },
+    {
+      "k": 9,
+      "loo_accuracy": 0.85,
+      "loo_precision": 0.780952,
+      "loo_recall": 0.689076,
+      "loo_f1": 0.732143,
+      "split_acc_mean": 0.8525,
+      "split_acc_std": 0.026367,
+      "split_prec_mean": 0.742049,
+      "split_prec_std": 0.074016,
+      "split_rec_mean": 0.778708,
+      "split_rec_std": 0.046723,
+      "split_f1_mean": 0.758182,
+      "split_f1_std": 0.04785
+    },
+    {
+      "k": 11,
+      "loo_accuracy": 0.85,
+      "loo_precision": 0.775701,
+      "loo_recall": 0.697479,
+      "loo_f1": 0.734513,
+      "split_acc_mean": 0.8475,
+      "split_acc_std": 0.025474,
+      "split_prec_mean": 0.739971,
+      "split_prec_std": 0.077501,
+      "split_rec_mean": 0.758572,
+      "split_rec_std": 0.061233,
+      "split_f1_mean": 0.746633,
+      "split_f1_std": 0.050176
+    },
+    {
+      "k": 15,
+      "loo_accuracy": 0.8575,
+      "loo_precision": 0.787037,
+      "loo_recall": 0.714286,
+      "loo_f1": 0.748899,
+      "split_acc_mean": 0.850833,
+      "split_acc_std": 0.025595,
+      "split_prec_mean": 0.746027,
+      "split_prec_std": 0.075703,
+      "split_rec_mean": 0.765527,
+      "split_rec_std": 0.049215,
+      "split_f1_mean": 0.753125,
+      "split_f1_std": 0.043238
+    },
+    {
+      "k": 21,
+      "loo_accuracy": 0.86,
+      "loo_precision": 0.788991,
+      "loo_recall": 0.722689,
+      "loo_f1": 0.754386,
+      "split_acc_mean": 0.8625,
+      "split_acc_std": 0.021606,
+      "split_prec_mean": 0.767251,
+      "split_prec_std": 0.068925,
+      "split_rec_mean": 0.775511,
+      "split_rec_std": 0.057959,
+      "split_f1_mean": 0.769221,
+      "split_f1_std": 0.046002
+    },
+    {
+      "k": 31,
+      "loo_accuracy": 0.885,
+      "loo_precision": 0.841121,
+      "loo_recall": 0.756303,
+      "loo_f1": 0.79646,
+      "split_acc_mean": 0.858333,
+      "split_acc_std": 0.030681,
+      "split_prec_mean": 0.76859,
+      "split_prec_std": 0.094412,
+      "split_rec_mean": 0.761947,
+      "split_rec_std": 0.052837,
+      "split_f1_mean": 0.761634,
+      "split_f1_std": 0.053205
+    }
+  ],
+  "k_selection": {
+    "chosen_k": 31,
+    "best_loo_f1": 0.79646,
+    "near_candidates": [
+      31
+    ],
+    "candidate_detail": [
+      {
+        "k": 31,
+        "loo_f1": 0.79646,
+        "split_f1_mean": 0.761634,
+        "split_f1_std": 0.053205
+      }
+    ],
+    "reason": "以留一法 F1 为主排序依据，最高值为 0.7965；在 F1 相差不超过 0.006 的候选 [31] 中，选择 10 次划分 F1 标准差最小者（稳定性优先），最终 k = 31；k=1 的 LOO 指标为 acc=0.8025、F1=0.6776，但 k=1 只参考单个最近邻，对噪声样本与异常值几乎没有抵抗能力，在真实预警场景会给出极端概率（非 0 即 1），因此不作为主模型取值"
+  },
+  "main_k": 31,
+  "loo_knn": {
+    "model": "KNN_LOO_k31",
+    "n": 400,
+    "confusion_matrix": [
+      [
+        264,
+        17
+      ],
+      [
+        29,
+        90
+      ]
+    ],
+    "counts": {
+      "TP": 90,
+      "TN": 264,
+      "FP": 17,
+      "FN": 29
+    },
+    "metrics": {
+      "TP": 90.0,
+      "TN": 264.0,
+      "FP": 17.0,
+      "FN": 29.0,
+      "accuracy": 0.885,
+      "precision": 0.841121,
+      "recall": 0.756303,
+      "f1": 0.79646,
+      "specificity": 0.939502,
+      "npv": 0.901024,
+      "balanced_accuracy": 0.847902
+    },
+    "f1_check": 0.79646,
+    "support": {
+      "正常(0)": 281,
+      "需关注(1)": 119
+    },
+    "pred_distribution": {
+      "预测正常(0)": 293,
+      "预测需关注(1)": 107
+    },
+    "k": 31,
+    "k_effective": 31
+  },
+  "risk_level_eval": {
+    "labels": [
+      "低",
+      "中",
+      "高"
+    ],
+    "confusion_matrix": [
+      [
+        226,
+        22,
+        0
+      ],
+      [
+        17,
+        64,
+        23
+      ],
+      [
+        0,
+        8,
+        40
+      ]
+    ],
+    "accuracy": 0.825,
+    "accuracy_with_neighbor": 1.0,
+    "per_class": {
+      "低": {
+        "precision": 0.93,
+        "recall": 0.9113,
+        "f1": 0.9206,
+        "support": 248
+      },
+      "中": {
+        "precision": 0.6809,
+        "recall": 0.6154,
+        "f1": 0.6465,
+        "support": 104
+      },
+      "高": {
+        "precision": 0.6349,
+        "recall": 0.8333,
+        "f1": 0.7207,
+        "support": 48
+      }
+    },
+    "n": 400,
+    "note": "等级标签与二分类标签口径不同，等级准确率天然低于二分类准确率，属预期现象"
+  },
+  "split10_knn": {
+    "accuracy": {
+      "mean": 0.858333,
+      "std": 0.030681,
+      "min": 0.791667,
+      "max": 0.9
+    },
+    "precision": {
+      "mean": 0.76859,
+      "std": 0.094412,
+      "min": 0.615385,
+      "max": 0.892857
+    },
+    "recall": {
+      "mean": 0.761947,
+      "std": 0.052837,
+      "min": 0.684211,
+      "max": 0.825
+    },
+    "f1": {
+      "mean": 0.761634,
+      "std": 0.053205,
+      "min": 0.657534,
+      "max": 0.823529
+    },
+    "specificity": {
+      "mean": 0.899595,
+      "std": 0.044278,
+      "min": 0.825581,
+      "max": 0.964286
+    },
+    "balanced_accuracy": {
+      "mean": 0.830771,
+      "std": 0.031095,
+      "min": 0.765732,
+      "max": 0.870588
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          757,
+          85
+        ],
+        [
+          85,
+          273
+        ]
+      ]
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.1,
+      "accuracy": 0.75,
+      "precision": 0.5442,
+      "recall": 0.9832,
+      "f1": 0.7006,
+      "n_predicted_risk": 215
+    },
+    {
+      "threshold": 0.15,
+      "accuracy": 0.77,
+      "precision": 0.5652,
+      "recall": 0.9832,
+      "f1": 0.7178,
+      "n_predicted_risk": 207
+    },
+    {
+      "threshold": 0.2,
+      "accuracy": 0.815,
+      "precision": 0.6271,
+      "recall": 0.9328,
+      "f1": 0.75,
+      "n_predicted_risk": 177
+    },
+    {
+      "threshold": 0.25,
+      "accuracy": 0.8375,
+      "precision": 0.6627,
+      "recall": 0.9244,
+      "f1": 0.7719,
+      "n_predicted_risk": 166
+    },
+    {
+      "threshold": 0.3,
+      "accuracy": 0.85,
+      "precision": 0.6879,
+      "recall": 0.9076,
+      "f1": 0.7826,
+      "n_predicted_risk": 157
+    },
+    {
+      "threshold": 0.35,
+      "accuracy": 0.875,
+      "precision": 0.7379,
+      "recall": 0.8992,
+      "f1": 0.8106,
+      "n_predicted_risk": 145
+    },
+    {
+      "threshold": 0.4,
+      "accuracy": 0.855,
+      "precision": 0.7328,
+      "recall": 0.8067,
+      "f1": 0.768,
+      "n_predicted_risk": 131
+    },
+    {
+      "threshold": 0.45,
+      "accuracy": 0.86,
+      "precision": 0.7561,
+      "recall": 0.7815,
+      "f1": 0.7686,
+      "n_predicted_risk": 123
+    },
+    {
+      "threshold": 0.5,
+      "accuracy": 0.885,
+      "precision": 0.8411,
+      "recall": 0.7563,
+      "f1": 0.7965,
+      "n_predicted_risk": 107
+    },
+    {
+      "threshold": 0.55,
+      "accuracy": 0.8675,
+      "precision": 0.8587,
+      "recall": 0.6639,
+      "f1": 0.7488,
+      "n_predicted_risk": 92
+    },
+    {
+      "threshold": 0.6,
+      "accuracy": 0.8625,
+      "precision": 0.8721,
+      "recall": 0.6303,
+      "f1": 0.7317,
+      "n_predicted_risk": 86
+    },
+    {
+      "threshold": 0.65,
+      "accuracy": 0.8425,
+      "precision": 0.9,
+      "recall": 0.5294,
+      "f1": 0.6667,
+      "n_predicted_risk": 70
+    },
+    {
+      "threshold": 0.7,
+      "accuracy": 0.835,
+      "precision": 0.9206,
+      "recall": 0.4874,
+      "f1": 0.6374,
+      "n_predicted_risk": 63
+    },
+    {
+      "threshold": 0.75,
+      "accuracy": 0.805,
+      "precision": 0.9184,
+      "recall": 0.3782,
+      "f1": 0.5357,
+      "n_predicted_risk": 49
+    },
+    {
+      "threshold": 0.8,
+      "accuracy": 0.775,
+      "precision": 0.8919,
+      "recall": 0.2773,
+      "f1": 0.4231,
+      "n_predicted_risk": 37
+    },
+    {
+      "threshold": 0.85,
+      "accuracy": 0.75,
+      "precision": 0.9524,
+      "recall": 0.1681,
+      "f1": 0.2857,
+      "n_predicted_risk": 21
+    },
+    {
+      "threshold": 0.9,
+      "accuracy": 0.735,
+      "precision": 1.0,
+      "recall": 0.1092,
+      "f1": 0.197,
+      "n_predicted_risk": 13
+    }
+  ],
+  "logreg_backend": {
+    "backend": "sklearn",
+    "version": "1.7.2",
+    "detail": "检测到 scikit-learn，对照模型使用 sklearn.linear_model.LogisticRegression"
+  },
+  "split10_logreg": {
+    "accuracy": {
+      "mean": 0.854167,
+      "std": 0.032926,
+      "min": 0.791667,
+      "max": 0.891667
+    },
+    "precision": {
+      "mean": 0.753033,
+      "std": 0.089647,
+      "min": 0.615385,
+      "max": 0.848485
+    },
+    "recall": {
+      "mean": 0.770703,
+      "std": 0.046776,
+      "min": 0.705882,
+      "max": 0.857143
+    },
+    "f1": {
+      "mean": 0.758892,
+      "std": 0.053322,
+      "min": 0.657534,
+      "max": 0.825
+    },
+    "specificity": {
+      "mean": 0.890067,
+      "std": 0.044747,
+      "min": 0.825581,
+      "max": 0.941176
+    },
+    "balanced_accuracy": {
+      "mean": 0.830385,
+      "std": 0.031293,
+      "min": 0.765732,
+      "max": 0.86875
+    },
+    "confusion_sum": {
+      "value": [
+        [
+          749,
+          93
+        ],
+        [
+          82,
+          276
+        ]
+      ]
+    }
+  },
+  "loo_logreg": {
+    "TP": 88.0,
+    "TN": 260.0,
+    "FP": 21.0,
+    "FN": 31.0,
+    "accuracy": 0.87,
+    "precision": 0.807339,
+    "recall": 0.739496,
+    "f1": 0.77193,
+    "specificity": 0.925267,
+    "npv": 0.893471,
+    "balanced_accuracy": 0.832381
+  },
+  "new_batch_knn": {
+    "model": "KNN_new_batch_k31",
+    "n": 100,
+    "confusion_matrix": [
+      [
+        66,
+        7
+      ],
+      [
+        3,
+        24
+      ]
+    ],
+    "counts": {
+      "TP": 24,
+      "TN": 66,
+      "FP": 7,
+      "FN": 3
+    },
+    "metrics": {
+      "TP": 24.0,
+      "TN": 66.0,
+      "FP": 7.0,
+      "FN": 3.0,
+      "accuracy": 0.9,
+      "precision": 0.774194,
+      "recall": 0.888889,
+      "f1": 0.827586,
+      "specificity": 0.90411,
+      "npv": 0.956522,
+      "balanced_accuracy": 0.896499
+    },
+    "f1_check": 0.827586,
+    "support": {
+      "正常(0)": 73,
+      "需关注(1)": 27
+    },
+    "pred_distribution": {
+      "预测正常(0)": 69,
+      "预测需关注(1)": 31
+    }
+  },
+  "new_batch_logreg": {
+    "model": "LogReg_new_batch",
+    "n": 100,
+    "confusion_matrix": [
+      [
+        66,
+        7
+      ],
+      [
+        3,
+        24
+      ]
+    ],
+    "counts": {
+      "TP": 24,
+      "TN": 66,
+      "FP": 7,
+      "FN": 3
+    },
+    "metrics": {
+      "TP": 24.0,
+      "TN": 66.0,
+      "FP": 7.0,
+      "FN": 3.0,
+      "accuracy": 0.9,
+      "precision": 0.774194,
+      "recall": 0.888889,
+      "f1": 0.827586,
+      "specificity": 0.90411,
+      "npv": 0.956522,
+      "balanced_accuracy": 0.896499
+    },
+    "f1_check": 0.827586,
+    "support": {
+      "正常(0)": 73,
+      "需关注(1)": 27
+    },
+    "pred_distribution": {
+      "预测正常(0)": 69,
+      "预测需关注(1)": 31
+    }
+  },
+  "new_batch_info": {
+    "n": 100,
+    "path": "E:\\git\\student study\\data\\scores_new_batch.csv",
+    "risk_ratio": 0.27,
+    "note": "该批次由独立随机种子生成，从未参与任何训练与调参"
+  },
+  "new_batch_risk_level_eval": {
+    "labels": [
+      "低",
+      "中",
+      "高"
+    ],
+    "confusion_matrix": [
+      [
+        56,
+        6,
+        0
+      ],
+      [
+        1,
+        15,
+        10
+      ],
+      [
+        0,
+        0,
+        12
+      ]
+    ],
+    "accuracy": 0.83,
+    "accuracy_with_neighbor": 1.0,
+    "per_class": {
+      "低": {
+        "precision": 0.9825,
+        "recall": 0.9032,
+        "f1": 0.9412,
+        "support": 62
+      },
+      "中": {
+        "precision": 0.7143,
+        "recall": 0.5769,
+        "f1": 0.6383,
+        "support": 26
+      },
+      "高": {
+        "precision": 0.5455,
+        "recall": 1.0,
+        "f1": 0.7059,
+        "support": 12
+      }
+    },
+    "n": 100,
+    "note": "等级标签与二分类标签口径不同，等级准确率天然低于二分类准确率，属预期现象"
+  },
+  "manual_verification": {
+    "counts": {
+      "TP": 24,
+      "TN": 66,
+      "FP": 7,
+      "FN": 3
+    },
+    "steps": {
+      "precision": "precision = TP/(TP+FP) = 24/31 = 0.774194",
+      "recall": "recall = TP/(TP+FN) = 24/27 = 0.888889",
+      "accuracy": "accuracy = (TP+TN)/N = (24+66)/100 = 0.900000",
+      "f1": "F1 = 2PR/(P+R) = 0.827586；交叉验证公式 2TP/(2TP+FP+FN) = 0.827586（两者一致：True）"
+    },
+    "all_passed": true
+  },
+  "dataset": "自建模拟/脱敏数据（v1 口径：手写 KNN 为主模型）",
+  "metrics_table": [
+    {
+      "model": "KNN(k=31)",
+      "protocol": "留一法(LOO)",
+      "accuracy": 0.885,
+      "precision": 0.8411,
+      "recall": 0.7563,
+      "f1": 0.7965,
+      "specificity": 0.9395,
+      "balanced_accuracy": 0.8479,
+      "TP": 90,
+      "TN": 264,
+      "FP": 17,
+      "FN": 29
+    },
+    {
+      "model": "KNN(k=31)",
+      "protocol": "10次随机划分(均值)",
+      "accuracy": 0.8583,
+      "precision": 0.7686,
+      "recall": 0.7619,
+      "f1": 0.7616,
+      "specificity": 0.8996,
+      "balanced_accuracy": 0.8308,
+      "TP": "",
+      "TN": "",
+      "FP": "",
+      "FN": ""
+    },
+    {
+      "model": "逻辑回归",
+      "protocol": "留一法(LOO)",
+      "accuracy": 0.87,
+      "precision": 0.8073,
+      "recall": 0.7395,
+      "f1": 0.7719,
+      "specificity": 0.9253,
+      "balanced_accuracy": 0.8324,
+      "TP": 88,
+      "TN": 260,
+      "FP": 21,
+      "FN": 31
+    },
+    {
+      "model": "逻辑回归",
+      "protocol": "10次随机划分(均值)",
+      "accuracy": 0.8542,
+      "precision": 0.753,
+      "recall": 0.7707,
+      "f1": 0.7589,
+      "specificity": 0.8901,
+      "balanced_accuracy": 0.8304,
+      "TP": "",
+      "TN": "",
+      "FP": "",
+      "FN": ""
+    },
+    {
+      "model": "KNN(k=31)",
+      "protocol": "新样本测试",
+      "accuracy": 0.9,
+      "precision": 0.7742,
+      "recall": 0.8889,
+      "f1": 0.8276,
+      "specificity": 0.9041,
+      "balanced_accuracy": 0.8965,
+      "TP": 24,
+      "TN": 66,
+      "FP": 7,
+      "FN": 3
+    },
+    {
+      "model": "逻辑回归",
+      "protocol": "新样本测试",
+      "accuracy": 0.9,
+      "precision": 0.7742,
+      "recall": 0.8889,
+      "f1": 0.8276,
+      "specificity": 0.9041,
+      "balanced_accuracy": 0.8965,
+      "TP": 24,
+      "TN": 66,
+      "FP": 7,
+      "FN": 3
+    }
+  ],
+  "logreg_params": {
+    "C": 1.0,
+    "solver": "lbfgs",
+    "coef": {
+      "python": -0.131,
+      "ml": -0.6181,
+      "cv": -0.5571,
+      "attendance_rate": -0.7941,
+      "homework_submit_rate": -1.1175,
+      "self_study_hours": -0.9728,
+      "score_mean": -0.4915,
+      "score_std": -0.0462
+    },
+    "intercept": -2.1227
+  },
+  "knn_params": {
+    "k": 31,
+    "n_train": 400,
+    "n_features": 8
+  },
+  "risk_level_thresholds": {
+    "low": 0.3,
+    "high": 0.7
+  },
+  "elapsed_sec": 1.95
+}

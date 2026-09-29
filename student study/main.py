@@ -69,7 +69,7 @@ def check_environment(verbose: bool = True) -> Dict:
     except ImportError:
         info["sklearn"] = "未安装 → 对照模型使用 numpy 手写逻辑回归（符合实训约束）"
 
-    info["data_file"] = "存在" if os.path.exists(cfg.DATA_PATH) else "缺失（请先执行步骤 1）"
+    info["data_file"] = "存在" if os.path.exists(cfg.SIM_DATA_PATH) else "缺失（请先执行步骤 1）"
     info["new_batch_file"] = "存在" if os.path.exists(cfg.NEW_BATCH_PATH) else "缺失（请先执行步骤 1）"
     info["model_file"] = "存在" if os.path.exists(cfg.MODEL_PATH) else "缺失（请先执行步骤 2）"
     info["metrics_file"] = "存在" if os.path.exists(cfg.METRICS_SUMMARY_PATH) else "缺失（请先执行步骤 2）"
@@ -103,8 +103,8 @@ def step_train_eval(k: Optional[int] = None, splits: int = cfg.N_SPLITS,
                     seed: int = cfg.RANDOM_SEED) -> Dict:
     """步骤 2：训练与评估（手写 KNN 主模型 + 逻辑回归对照，三套评估口径）。"""
     from train_eval import run_training_eval
-    if not os.path.exists(cfg.DATA_PATH):
-        print("[提示] 未找到数据文件，先自动执行步骤 1（生成模拟数据）……")
+    if not os.path.exists(cfg.SIM_DATA_PATH):
+        print("[提示] 未找到模拟数据文件，先自动执行步骤 1（生成模拟数据）……")
         step_generate_data(seed=seed)
     return run_training_eval(main_k=k, n_splits=splits, seed=seed)
 
@@ -613,6 +613,16 @@ def step_show_metrics_v2() -> None:
         return
     with open(cfg.METRICS_SUMMARY_PATH, "r", encoding="utf-8") as f:
         s = json.load(f)
+
+    # 口径校验：metrics_summary.json 必须是 v2（UCI 真实数据）的内容。
+    # 早期 v1 与 v2 共用同一文件名，跑一次 `--auto --legacy` 就会把它覆盖成
+    # 模拟数据口径，这里会读到完全不同的字段（表现为 KeyError: logo_knn）。
+    if "logo_knn" not in s:
+        print("[提示] metrics_summary.json 不是 v2 口径（缺少 logo_knn 字段），疑似被 v1 流程覆盖。")
+        print(f"       当前文件的数据集标记为：{s.get('dataset', '未知')}")
+        print("       请重新运行：python main.py --step train")
+        print(f"       如需查看 v1 指标，请打开 {os.path.relpath(cfg.LEGACY_METRICS_SUMMARY_PATH, cfg.BASE_DIR)}")
+        return
 
     print_title("v2 实验指标汇总（UCI 真实数据 + sklearn 主模型）")
     print_kv({

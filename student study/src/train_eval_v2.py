@@ -312,12 +312,16 @@ def run_uci_pipeline(backend: str = "auto", n_splits: int = cfg.N_SPLITS,
         print(f"后端：{summary['backend_description']}")
 
     # ---------------- ① 数据 ----------------
-    if os.path.exists(cfg.UCI_DATA_PATH):
-        df = pd.read_csv(cfg.UCI_DATA_PATH, encoding="utf-8-sig")
-        if cfg.RISK_LEVEL_COLUMN not in df.columns:
-            df = add_risk_level(df)
-    else:
-        df, _ = build_uci_dataset(verbose=verbose)
+    # 用 load_saved_dataset 而非直接 read_csv：它会校验文件内容确实是 UCI 数据，
+    # 一旦发现被污染（例如曾被模拟数据覆盖）就自动重建，
+    # 避免带着错误数据继续跑、最后得出错误结论。
+    try:
+        from .uci_data import load_saved_dataset
+    except ImportError:  # pragma: no cover - 脚本直跑分支
+        from uci_data import load_saved_dataset
+    df = load_saved_dataset(cfg.UCI_DATA_PATH)
+    if cfg.RISK_LEVEL_COLUMN not in df.columns:
+        df = add_risk_level(df)
 
     groups = df["student_group_id"].to_numpy()
     n_groups = len(pd.unique(groups))
