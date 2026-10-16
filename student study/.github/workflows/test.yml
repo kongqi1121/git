@@ -1,0 +1,117 @@
+# GitHub Actions 持续集成（建议 D3）
+# =========================================================
+# 设计原则：**分两条流水线**，避免"每次提交都跑几分钟全流程"。
+#
+#   ① test   —— 每次 push / PR 触发，只跑单元测试与编译检查，目标 2 分钟内完成
+#   ② pipeline —— 每日定时 + 手动触发，跑完整 --auto 全流程，验证主流程未被破坏
+#
+# 【本项目实测过的环境约束（写进 CI 时都要照顾到）】
+#   · `n_jobs` 必须为 1：sklearn 的 KNN 若用 n_jobs=-1 会走 joblib 线程池，
+#     在受限环境触发命名管道错误（PermissionError: WinError 5）；
+#     固定为 1 还能保证 CI 与本地**数值逐位一致**，这比跑得快更重要。
+#   · UCI 原始数据需要联网下载：用 actions/cache 缓存 data/uci_raw/，
+#     并用 md5 做缓存键，保证数据版本可追溯。
+#   · 不提交生成物：仓库 .gitignore 已排除原始数据与数据集，
+#     CI 里按需重新生成，而不是依赖仓库文件。
+#   · 环境相关字段（speedup_x / elapsed_sec / timestamp）会逐次变化，
+#     因此**不能把它们作为断言对象**，否则 CI 会随机失败。
+# =========================================================
+
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: 单元测试与编译检查（Python ${{ matrix.python-version }}）
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10"]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: 语法编译检查（全部源码）
+        shell: bash
+        run: |
+          python -m py_compile main.py
+          for f in src/*.py; do python -m py_compile "$f"; done
+          echo "全部源码编译通过"
+
+      - name: 运行单元测试
+        run: python -m pytest tests -v --durations=10
+
+      - name: 缓存 UCI 原始数据（按固定键，保证数据版本一致）
+        uses: actions/cache@v4
+        with:
+          path: data/uci_raw
+          key: uci-student-performance-mat-4dc304be-por-973e7bac
+
+      - name: 构建 UCI 数据集（离线测试之外的集成检查）
+        run: python main.py --step data
+
+      - name: 数据内容体检（防止数据集被污染）
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, 'src')
+          import uci_data, json
+          rep = uci_data.verify_saved_dataset(verbose=True)
+          print(json.dumps(rep, ensure_ascii=False))
+          assert rep['ok'], 'UCI 数据集体检未通过: ' + rep['reason']
+          "
+
+      - name: 上传测试与数据报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts-${{ matrix.os }}
+          path: |
+            results/metrics/*.json
+            data/uci_raw/*.csv
+          retention-days: 7
+          if-no-files-found: warn
+
+  self-checks:
+    name: 模块自检（各模块独立可运行）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: 手写 KNN 手工可复算用例
+        run: python src/knn_numpy.py
+      - name: 指标 vs 人工复算一致性
+        run: python src/evaluate.py
+      - name: 留一法高效实现 vs 朴素实现一致性
+        run: python src/cross_validate.py
+      - name: 逻辑回归收敛性
+        run: python src/logreg_numpy.py
+      - name: 建议生成与防篡改校验
+        run: python src/llm_helper.py
+      - name: 模型后端可用性
+        run: python src/model_backends.py

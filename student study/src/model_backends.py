@@ -106,17 +106,67 @@ class ModelAdapter:
         predict_proba(X) -> ndarray (n, 2)，第 1 列为高风险概率
         decision_function(X) -> ndarray（仅逻辑回归有）
         get_feature_importance() -> (names, values)（KNN 返回 None）
+
+    【为什么还要实现 get_params / set_params】
+    sklearn 的不少组件（`CalibratedClassifierCV`、`cross_val_score` 等）会调用 `clone()`
+    复制估计器，而 `clone()` 要求对象实现 sklearn 的估计器协议。
+    早期版本没有实现，导致概率校准直接失败：
+        TypeError: Cannot clone object ... does not implement a 'get_params' method
+    因此这里补齐协议，使 ModelAdapter 能被 sklearn 正常克隆 ——
+    这也是"后端抽象层"真正与 sklearn 生态互操作的前提。
+    此外还需声明 `_estimator_type = "classifier"`：
+    sklearn 的 `is_classifier()` 会检查该标记，否则
+    `CalibratedClassifierCV` 会把它当成 regressor 并报错
+    （实测：ValueError: ModelAdapter should either be a classifier ... Got a regressor）。
     """
+
+    # 让 sklearn 的 is_classifier() 返回 True（供校准器、交叉验证等组件使用）
+    _estimator_type = "classifier"
 
     def __init__(self, kind: str, backend: str = "auto", **kwargs: Any) -> None:
         assert kind in ("knn", "logreg"), f"未知模型类型 {kind}"
         self.kind = kind
         self.requested_backend = backend
-        self.backend = resolve_backend(backend)
+
+        # 参数命名与 sklearn 对齐（n_neighbors），便于 get_params/clone；
+        # 同时接受本项目内部惯用的 `k` 作为别名。
+        if kind == "knn":
+            if "k" in kwargs and "n_neighbors" not in kwargs:
+                kwargs["n_neighbors"] = kwargs.pop("k")
+            kwargs.setdefault("n_neighbors", cfg.MAIN_K)
         self.kwargs = dict(kwargs)
+
+        self.backend = resolve_backend(backend)
         self.model = self._build()
         # 记录预测阶段是否需要 exclude_self（仅手写实现支持该参数）
         self._supports_exclude_self = isinstance(self.model, KNNClassifierNumpy)
+
+    # ------------------------------------------------------------------
+    # sklearn 估计器协议（供 clone / Pipeline / CalibratedClassifierCV 使用）
+    # ------------------------------------------------------------------
+    def get_params(self, deep: bool = True) -> Dict[str, Any]:
+        """返回构造参数，使 sklearn.clone 能复制本对象。"""
+        params: Dict[str, Any] = {"kind": self.kind, "backend": self.requested_backend}
+        params.update(self.kwargs)
+        return params
+
+    def set_params(self, **params: Any) -> "ModelAdapter":
+        """设置构造参数并重建内部模型（sklearn.clone 的流程是先构造再 set_params）。"""
+        if "kind" in params:
+            self.kind = params.pop("kind")
+        if "backend" in params:
+            self.requested_backend = params.pop("backend")
+        self.kwargs.update(params)
+        if self.kind == "knn" and "k" in self.kwargs and "n_neighbors" not in self.kwargs:
+            self.kwargs["n_neighbors"] = self.kwargs.pop("k")
+        self.backend = resolve_backend(self.requested_backend)
+        self.model = self._build()
+        self._supports_exclude_self = isinstance(self.model, KNNClassifierNumpy)
+        return self
+
+    def __repr__(self) -> str:  # 便于在日志与报错信息里辨认
+        kw = ", ".join(f"{k}={v}" for k, v in self.kwargs.items())
+        return f"ModelAdapter(kind={self.kind!r}, backend={self.backend!r}, {kw})"
 
     # ------------------------------------------------------------------
     def _build(self):
@@ -161,6 +211,13 @@ class ModelAdapter:
     # ------------------------------------------------------------------
     def fit(self, X: np.ndarray, y: np.ndarray) -> "ModelAdapter":
         self.model.fit(np.asarray(X, dtype=float), np.asarray(y).ravel())
+        # 暴露 classes_ 属性：sklearn 的若干工具（校准、部分指标）会读取它
+        if hasattr(self.model, "classes_"):
+            self.classes_ = np.asarray(self.model.classes_)
+        else:
+            self.classes_ = np.unique(np.asarray(y).ravel())
+        # n_features_in_ 同理，便于 sklearn 做输入维度校验
+        self.n_features_in_ = int(np.asarray(X).shape[1])
         return self
 
     def predict(self, X: np.ndarray, exclude_self: bool = False,
@@ -192,10 +249,22 @@ class ModelAdapter:
         return np.asarray(self.model.predict_proba(X), dtype=float)
 
     def decision_function(self, X: np.ndarray) -> np.ndarray:
-        """线性得分（仅逻辑回归）。KNN 不支持时抛出明确异常。"""
-        if self.kind != "logreg":
-            raise AttributeError("KNN 不支持 decision_function")
-        return np.asarray(self.model.decision_function(np.asarray(X, dtype=float)))
+        """
+        决策分数。
+
+        · 逻辑回归：直接返回线性得分 w·x + b（有明确含义）；
+        · KNN：概念上不存在线性决策函数，但 sklearn 的若干组件
+          （例如 `CalibratedClassifierCV`）会优先探测并使用 `decision_function`。
+          为让它们正常工作，这里返回一个**保序的伪分数**：
+              score = p(高风险) − p(正常) = (k_risk − k_safe) / k
+          它与 `predict_proba` 严格单调同序，因此不会改变任何排序相关的结论。
+          这一点在文档中已注明：**该分数不代表线性可分性，只是接口适配**。
+        """
+        if self.kind == "logreg":
+            return np.asarray(self.model.decision_function(np.asarray(X, dtype=float)))
+        proba = np.asarray(self.predict_proba(X), dtype=float)
+        # 二分类下 score = p1 - p0，取值 [-1, 1]，与 p1 单调同序
+        return proba[:, 1] - proba[:, 0]
 
     # ------------------------------------------------------------------
     def coefficients(self) -> Optional[np.ndarray]:

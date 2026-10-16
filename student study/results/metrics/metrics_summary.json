@@ -2,7 +2,7 @@
   "dataset": "UCI Student Performance（真实公开数据，主数据）",
   "n_splits": 10,
   "seed": 42,
-  "timestamp": "2026-09-29 08:31:52",
+  "timestamp": "2026-10-16 10:16:00",
   "backend": "sklearn",
   "backend_description": "knn: sklearn 实现（scikit-learn 1.7.2）—— 主模型承担核心功能",
   "sklearn_version": "1.7.2",
@@ -629,7 +629,439 @@
       "logo_f1": ""
     }
   ],
-  "elapsed_sec": 9.17,
+  "logreg_class_weight_ablation": {
+    "method": "10 次按学生分组随机划分，两版本同一批划分（配对设计）",
+    "table": [
+      {
+        "setting": "逻辑回归(class_weight=None)",
+        "n_splits": 10,
+        "accuracy": 0.7885,
+        "accuracy_std": 0.0181,
+        "precision": 0.5924,
+        "precision_std": 0.0564,
+        "recall": 0.2644,
+        "recall_std": 0.0416,
+        "f1": 0.3636,
+        "f1_std": 0.0431,
+        "n_predicted_risk_mean": 32.2,
+        "FN_mean": 53.1,
+        "FP_mean": 13.2
+      },
+      {
+        "setting": "逻辑回归(balanced)",
+        "n_splits": 10,
+        "accuracy": 0.7182,
+        "accuracy_std": 0.0337,
+        "precision": 0.4242,
+        "precision_std": 0.035,
+        "recall": 0.6158,
+        "recall_std": 0.0469,
+        "f1": 0.5015,
+        "f1_std": 0.0339,
+        "n_predicted_risk_mean": 105.0,
+        "FN_mean": 27.7,
+        "FP_mean": 60.6
+      }
+    ],
+    "paired_balanced_vs_default": {
+      "recall": {
+        "n": 10,
+        "pair_a": "balanced",
+        "pair_b": "None",
+        "mean_diff": 0.351363,
+        "std_diff": 0.032638,
+        "t": 34.0437,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.328017,
+          0.374709
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "precision": {
+        "n": 10,
+        "pair_a": "balanced",
+        "pair_b": "None",
+        "mean_diff": -0.168188,
+        "std_diff": 0.047486,
+        "t": -11.2003,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          -0.202155,
+          -0.134221
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "f1": {
+        "n": 10,
+        "pair_a": "balanced",
+        "pair_b": "None",
+        "mean_diff": 0.137868,
+        "std_diff": 0.034778,
+        "t": 12.536,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.112991,
+          0.162745
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "accuracy": {
+        "n": 10,
+        "pair_a": "balanced",
+        "pair_b": "None",
+        "mean_diff": -0.07028,
+        "std_diff": 0.025359,
+        "t": -8.7638,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          -0.088419,
+          -0.05214
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    },
+    "detail": {
+      "逻辑回归(class_weight=None)": [
+        {
+          "split": 1,
+          "seed": 42,
+          "accuracy": 0.7648902821316614,
+          "precision": 0.5,
+          "recall": 0.22666666666666666,
+          "f1": 0.3119266055045871,
+          "n_predicted_risk": 34,
+          "TP": 17,
+          "FP": 17,
+          "FN": 58,
+          "TN": 227
+        },
+        {
+          "split": 2,
+          "seed": 43,
+          "accuracy": 0.797427652733119,
+          "precision": 0.5172413793103449,
+          "recall": 0.234375,
+          "f1": 0.3225806451612903,
+          "n_predicted_risk": 29,
+          "TP": 15,
+          "FP": 14,
+          "FN": 49,
+          "TN": 233
+        },
+        {
+          "split": 3,
+          "seed": 44,
+          "accuracy": 0.7714285714285715,
+          "precision": 0.5833333333333334,
+          "recall": 0.2692307692307692,
+          "f1": 0.3684210526315789,
+          "n_predicted_risk": 36,
+          "TP": 21,
+          "FP": 15,
+          "FN": 57,
+          "TN": 222
+        },
+        {
+          "split": 4,
+          "seed": 45,
+          "accuracy": 0.790625,
+          "precision": 0.6428571428571429,
+          "recall": 0.24,
+          "f1": 0.34951456310679613,
+          "n_predicted_risk": 28,
+          "TP": 18,
+          "FP": 10,
+          "FN": 57,
+          "TN": 235
+        },
+        {
+          "split": 5,
+          "seed": 46,
+          "accuracy": 0.8126984126984127,
+          "precision": 0.6,
+          "recall": 0.27692307692307694,
+          "f1": 0.37894736842105264,
+          "n_predicted_risk": 30,
+          "TP": 18,
+          "FP": 12,
+          "FN": 47,
+          "TN": 238
+        },
+        {
+          "split": 6,
+          "seed": 47,
+          "accuracy": 0.7922077922077922,
+          "precision": 0.6428571428571429,
+          "recall": 0.25,
+          "f1": 0.36,
+          "n_predicted_risk": 28,
+          "TP": 18,
+          "FP": 10,
+          "FN": 54,
+          "TN": 226
+        },
+        {
+          "split": 7,
+          "seed": 48,
+          "accuracy": 0.7873015873015873,
+          "precision": 0.6,
+          "recall": 0.32,
+          "f1": 0.4173913043478261,
+          "n_predicted_risk": 40,
+          "TP": 24,
+          "FP": 16,
+          "FN": 51,
+          "TN": 224
+        },
+        {
+          "split": 8,
+          "seed": 49,
+          "accuracy": 0.8107255520504731,
+          "precision": 0.6571428571428571,
+          "recall": 0.323943661971831,
+          "f1": 0.4339622641509434,
+          "n_predicted_risk": 35,
+          "TP": 23,
+          "FP": 12,
+          "FN": 48,
+          "TN": 234
+        },
+        {
+          "split": 9,
+          "seed": 50,
+          "accuracy": 0.7980769230769231,
+          "precision": 0.5405405405405406,
+          "recall": 0.30303030303030304,
+          "f1": 0.38834951456310685,
+          "n_predicted_risk": 37,
+          "TP": 20,
+          "FP": 17,
+          "FN": 46,
+          "TN": 229
+        },
+        {
+          "split": 10,
+          "seed": 51,
+          "accuracy": 0.7598684210526315,
+          "precision": 0.64,
+          "recall": 0.2,
+          "f1": 0.30476190476190473,
+          "n_predicted_risk": 25,
+          "TP": 16,
+          "FP": 9,
+          "FN": 64,
+          "TN": 215
+        }
+      ],
+      "逻辑回归(balanced)": [
+        {
+          "split": 1,
+          "seed": 42,
+          "accuracy": 0.7272727272727273,
+          "precision": 0.44,
+          "recall": 0.5866666666666667,
+          "f1": 0.5028571428571429,
+          "n_predicted_risk": 100,
+          "TP": 44,
+          "FP": 56,
+          "FN": 31,
+          "TN": 188
+        },
+        {
+          "split": 2,
+          "seed": 43,
+          "accuracy": 0.6977491961414791,
+          "precision": 0.3611111111111111,
+          "recall": 0.609375,
+          "f1": 0.45348837209302323,
+          "n_predicted_risk": 108,
+          "TP": 39,
+          "FP": 69,
+          "FN": 25,
+          "TN": 178
+        },
+        {
+          "split": 3,
+          "seed": 44,
+          "accuracy": 0.6476190476190476,
+          "precision": 0.37209302325581395,
+          "recall": 0.6153846153846154,
+          "f1": 0.463768115942029,
+          "n_predicted_risk": 129,
+          "TP": 48,
+          "FP": 81,
+          "FN": 30,
+          "TN": 156
+        },
+        {
+          "split": 4,
+          "seed": 45,
+          "accuracy": 0.740625,
+          "precision": 0.46,
+          "recall": 0.6133333333333333,
+          "f1": 0.5257142857142858,
+          "n_predicted_risk": 100,
+          "TP": 46,
+          "FP": 54,
+          "FN": 29,
+          "TN": 191
+        },
+        {
+          "split": 5,
+          "seed": 46,
+          "accuracy": 0.7555555555555555,
+          "precision": 0.43333333333333335,
+          "recall": 0.6,
+          "f1": 0.503225806451613,
+          "n_predicted_risk": 90,
+          "TP": 39,
+          "FP": 51,
+          "FN": 26,
+          "TN": 199
+        },
+        {
+          "split": 6,
+          "seed": 47,
+          "accuracy": 0.7337662337662337,
+          "precision": 0.4479166666666667,
+          "recall": 0.5972222222222222,
+          "f1": 0.511904761904762,
+          "n_predicted_risk": 96,
+          "TP": 43,
+          "FP": 53,
+          "FN": 29,
+          "TN": 183
+        },
+        {
+          "split": 7,
+          "seed": 48,
+          "accuracy": 0.726984126984127,
+          "precision": 0.45217391304347826,
+          "recall": 0.6933333333333334,
+          "f1": 0.5473684210526315,
+          "n_predicted_risk": 115,
+          "TP": 52,
+          "FP": 63,
+          "FN": 23,
+          "TN": 177
+        },
+        {
+          "split": 8,
+          "seed": 49,
+          "accuracy": 0.7444794952681388,
+          "precision": 0.45454545454545453,
+          "recall": 0.704225352112676,
+          "f1": 0.5524861878453038,
+          "n_predicted_risk": 110,
+          "TP": 50,
+          "FP": 60,
+          "FN": 21,
+          "TN": 186
+        },
+        {
+          "split": 9,
+          "seed": 50,
+          "accuracy": 0.7307692307692307,
+          "precision": 0.40425531914893614,
+          "recall": 0.5757575757575758,
+          "f1": 0.47500000000000003,
+          "n_predicted_risk": 94,
+          "TP": 38,
+          "FP": 56,
+          "FN": 28,
+          "TN": 190
+        },
+        {
+          "split": 10,
+          "seed": 51,
+          "accuracy": 0.6776315789473685,
+          "precision": 0.4166666666666667,
+          "recall": 0.5625,
+          "f1": 0.4787234042553191,
+          "n_predicted_risk": 108,
+          "TP": 45,
+          "FP": 63,
+          "FN": 35,
+          "TN": 161
+        }
+      ]
+    },
+    "conclusion": [
+      "recall 变化 +0.3514（0.2644 → 0.6158），precision 变化 -0.1682（0.5924 → 0.4242）",
+      "F1 变化 +0.1379；名单人数 32.2 → 105.0",
+      "配对检验显示 recall 的提升是**可重复的**（p<0.05）—— 若辅导员人力允许更多复核工作量，balanced 版是更贴合预警目标的选择。",
+      "代价：precision 下降 0.1682，意味着名单里误报比例上升；是否采用取决于可投入的复核人力（见代价敏感分析 cost_sensitive.json）。",
+      "提示：该结果需与主模型 KNN(k=1) 的 recall 0.3435 横向比较 —— 若 balanced 版 recall 更高，应把『主模型是否更换』作为真实结论重新讨论。"
+    ],
+    "note": "类别加权会同时改变 recall 与 precision，必须四项指标并列报告。",
+    "logo_metrics": {
+      "TP": 140.0,
+      "TN": 610.0,
+      "FP": 204.0,
+      "FN": 90.0,
+      "accuracy": 0.7184,
+      "precision": 0.407,
+      "recall": 0.6087,
+      "f1": 0.4878,
+      "specificity": 0.7494,
+      "npv": 0.8714,
+      "balanced_accuracy": 0.679
+    },
+    "logo_counts": {
+      "TP": 140,
+      "TN": 610,
+      "FP": 204,
+      "FN": 90
+    }
+  },
+  "logo_logreg_balanced": {
+    "model": "logreg_LOGO",
+    "n": 1044,
+    "confusion_matrix": [
+      [
+        610,
+        204
+      ],
+      [
+        90,
+        140
+      ]
+    ],
+    "counts": {
+      "TP": 140,
+      "TN": 610,
+      "FP": 204,
+      "FN": 90
+    },
+    "metrics": {
+      "TP": 140.0,
+      "TN": 610.0,
+      "FP": 204.0,
+      "FN": 90.0,
+      "accuracy": 0.718391,
+      "precision": 0.406977,
+      "recall": 0.608696,
+      "f1": 0.487805,
+      "specificity": 0.749386,
+      "npv": 0.871429,
+      "balanced_accuracy": 0.679041
+    },
+    "f1_check": 0.487805,
+    "support": {
+      "正常(0)": 814,
+      "需关注(1)": 230
+    },
+    "pred_distribution": {
+      "预测正常(0)": 700,
+      "预测需关注(1)": 344
+    }
+  },
+  "elapsed_sec": 10.67,
   "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。",
   "citation": "Cortez, P., & Silva, A. (2008). Using Data Mining to Predict Secondary School Student Performance. In Proceedings of 5th FUTure BUsiness TEChnology Conference (FUBUTEC 2008), pp. 5-12, Porto, Portugal. UCI ML Repository, id 320, DOI 10.24432/C5TG7T. Licensed under CC BY 4.0.",
   "metrics_table": [
@@ -716,6 +1148,20 @@
       "TN": 254,
       "FP": 11,
       "FN": 106
+    },
+    {
+      "model": "逻辑回归(balanced)",
+      "protocol": "10 次分组随机划分（均值）",
+      "accuracy": 0.7182,
+      "precision": 0.4242,
+      "recall": 0.6158,
+      "f1": 0.5015,
+      "specificity": "",
+      "balanced_accuracy": "",
+      "TP": "",
+      "TN": "",
+      "FP": "",
+      "FN": ""
     }
   ],
   "manual_verification": {

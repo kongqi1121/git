@@ -1,0 +1,461 @@
+{
+  "method_notes": {
+    "t_interval": "10 次划分的均值用单样本 t 区间（df=9, t=2.262）",
+    "bootstrap": "分层/按学生整组 bootstrap，重抽 2000 次，取 2.5%/97.5% 分位",
+    "logo": "LOGO 为确定性结果，其区间来自『按学生重抽样本』，衡量换一批学生的不确定性，而非划分随机性"
+  },
+  "splits": {
+    "knn": {
+      "n_splits": 10,
+      "t_interval": {
+        "accuracy": {
+          "n": 10,
+          "mean": 0.74219,
+          "std": 0.025278,
+          "se": 0.007994,
+          "t_crit": 2.262,
+          "half_width": 0.018081,
+          "ci_low": 0.724109,
+          "ci_high": 0.760272,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "precision": {
+          "n": 10,
+          "mean": 0.431205,
+          "std": 0.04149,
+          "se": 0.01312,
+          "t_crit": 2.262,
+          "half_width": 0.029678,
+          "ci_low": 0.401527,
+          "ci_high": 0.460883,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "recall": {
+          "n": 10,
+          "mean": 0.373121,
+          "std": 0.055098,
+          "se": 0.017424,
+          "t_crit": 2.262,
+          "half_width": 0.039412,
+          "ci_low": 0.333708,
+          "ci_high": 0.412533,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "f1": {
+          "n": 10,
+          "mean": 0.398424,
+          "std": 0.04036,
+          "se": 0.012763,
+          "t_crit": 2.262,
+          "half_width": 0.02887,
+          "ci_low": 0.369554,
+          "ci_high": 0.427294,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "specificity": {
+          "n": 10,
+          "mean": 0.852197,
+          "std": 0.026996,
+          "se": 0.008537,
+          "t_crit": 2.262,
+          "half_width": 0.01931,
+          "ci_low": 0.832886,
+          "ci_high": 0.871507,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "balanced_accuracy": {
+          "n": 10,
+          "mean": 0.612659,
+          "std": 0.025341,
+          "se": 0.008014,
+          "t_crit": 2.262,
+          "half_width": 0.018127,
+          "ci_low": 0.594532,
+          "ci_high": 0.630785,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        }
+      },
+      "bootstrap_percentile": {
+        "accuracy": {
+          "n": 2000,
+          "mean": 0.741909,
+          "median": 0.742009,
+          "ci_low": 0.727152,
+          "ci_high": 0.755884,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "precision": {
+          "n": 2000,
+          "mean": 0.431061,
+          "median": 0.430895,
+          "ci_low": 0.408375,
+          "ci_high": 0.456085,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "recall": {
+          "n": 2000,
+          "mean": 0.372996,
+          "median": 0.371886,
+          "ci_low": 0.344511,
+          "ci_high": 0.407222,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "f1": {
+          "n": 2000,
+          "mean": 0.398294,
+          "median": 0.397823,
+          "ci_low": 0.376499,
+          "ci_high": 0.423613,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "specificity": {
+          "n": 2000,
+          "mean": 0.851993,
+          "median": 0.852132,
+          "ci_low": 0.835965,
+          "ci_high": 0.867156,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "balanced_accuracy": {
+          "n": 2000,
+          "mean": 0.612494,
+          "median": 0.612319,
+          "ci_low": 0.598068,
+          "ci_high": 0.627605,
+          "method": "bootstrap 百分位区间（95%）"
+        }
+      }
+    },
+    "logreg": {
+      "n_splits": 10,
+      "t_interval": {
+        "accuracy": {
+          "n": 10,
+          "mean": 0.788525,
+          "std": 0.018072,
+          "se": 0.005715,
+          "t_crit": 2.262,
+          "half_width": 0.012927,
+          "ci_low": 0.775598,
+          "ci_high": 0.801452,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "precision": {
+          "n": 10,
+          "mean": 0.592397,
+          "std": 0.056394,
+          "se": 0.017833,
+          "t_crit": 2.262,
+          "half_width": 0.040339,
+          "ci_low": 0.552058,
+          "ci_high": 0.632737,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "recall": {
+          "n": 10,
+          "mean": 0.264417,
+          "std": 0.041613,
+          "se": 0.013159,
+          "t_crit": 2.262,
+          "half_width": 0.029766,
+          "ci_low": 0.234651,
+          "ci_high": 0.294183,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "f1": {
+          "n": 10,
+          "mean": 0.363586,
+          "std": 0.04313,
+          "se": 0.013639,
+          "t_crit": 2.262,
+          "half_width": 0.030851,
+          "ci_low": 0.332735,
+          "ci_high": 0.394437,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "specificity": {
+          "n": 10,
+          "mean": 0.945444,
+          "std": 0.011963,
+          "se": 0.003783,
+          "t_crit": 2.262,
+          "half_width": 0.008557,
+          "ci_low": 0.936887,
+          "ci_high": 0.954001,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        },
+        "balanced_accuracy": {
+          "n": 10,
+          "mean": 0.60493,
+          "std": 0.019411,
+          "se": 0.006138,
+          "t_crit": 2.262,
+          "half_width": 0.013885,
+          "ci_low": 0.591045,
+          "ci_high": 0.618815,
+          "method": "单样本 t 区间（df=9, t=2.262）"
+        }
+      },
+      "bootstrap_percentile": {
+        "accuracy": {
+          "n": 2000,
+          "mean": 0.788308,
+          "median": 0.788355,
+          "ci_low": 0.777372,
+          "ci_high": 0.798982,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "precision": {
+          "n": 2000,
+          "mean": 0.592376,
+          "median": 0.592858,
+          "ci_low": 0.559454,
+          "ci_high": 0.62234,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "recall": {
+          "n": 2000,
+          "mean": 0.264112,
+          "median": 0.264096,
+          "ci_low": 0.239717,
+          "ci_high": 0.288434,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "f1": {
+          "n": 2000,
+          "mean": 0.363273,
+          "median": 0.362981,
+          "ci_low": 0.33772,
+          "ci_high": 0.388943,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "specificity": {
+          "n": 2000,
+          "mean": 0.94544,
+          "median": 0.945514,
+          "ci_low": 0.938683,
+          "ci_high": 0.952274,
+          "method": "bootstrap 百分位区间（95%）"
+        },
+        "balanced_accuracy": {
+          "n": 2000,
+          "mean": 0.604776,
+          "median": 0.604758,
+          "ci_low": 0.593353,
+          "ci_high": 0.615853,
+          "method": "bootstrap 百分位区间（95%）"
+        }
+      }
+    }
+  },
+  "logo": {
+    "point_estimate": {
+      "accuracy": 0.734674,
+      "precision": 0.385366,
+      "recall": 0.343478,
+      "f1": 0.363218,
+      "specificity": 0.845209,
+      "npv": 0.820024,
+      "balanced_accuracy": 0.594344
+    },
+    "counts": {
+      "TP": 79,
+      "TN": 688,
+      "FP": 126,
+      "FN": 151
+    },
+    "student_block_bootstrap": {
+      "accuracy": {
+        "n": 2000,
+        "mean": 0.734725,
+        "median": 0.734615,
+        "ci_low": 0.708134,
+        "ci_high": 0.762269,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "precision": {
+        "n": 2000,
+        "mean": 0.385064,
+        "median": 0.384615,
+        "ci_low": 0.31793,
+        "ci_high": 0.454082,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "recall": {
+        "n": 2000,
+        "mean": 0.34318,
+        "median": 0.342556,
+        "ci_low": 0.2803,
+        "ci_high": 0.410003,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "f1": {
+        "n": 2000,
+        "mean": 0.362287,
+        "median": 0.361474,
+        "ci_low": 0.301506,
+        "ci_high": 0.423359,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "specificity": {
+        "n": 2000,
+        "mean": 0.845269,
+        "median": 0.845355,
+        "ci_low": 0.818287,
+        "ci_high": 0.872084,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "balanced_accuracy": {
+        "n": 2000,
+        "mean": 0.594225,
+        "median": 0.593199,
+        "ci_low": 0.561208,
+        "ci_high": 0.629131,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "n_boot": 2000,
+      "n_boot_effective": 2000,
+      "n_boot_skipped": 0,
+      "n_students": 668,
+      "unit": "学生（同一学生全部记录一起重抽）",
+      "caveat": "按学生整组重抽是本数据集唯一正确的 bootstrap 口径，因为 372 名学生同修两门课、记录之间不独立。该区间衡量的是『换一批学生』带来的不确定性，而不是『换一次随机划分』带来的不确定性。"
+    },
+    "row_bootstrap_for_contrast": {
+      "accuracy": {
+        "n": 2000,
+        "mean": 0.734774,
+        "median": 0.734674,
+        "ci_low": 0.711686,
+        "ci_high": 0.757663,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "precision": {
+        "n": 2000,
+        "mean": 0.385815,
+        "median": 0.385391,
+        "ci_low": 0.331776,
+        "ci_high": 0.441501,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "recall": {
+        "n": 2000,
+        "mean": 0.343502,
+        "median": 0.343478,
+        "ci_low": 0.282609,
+        "ci_high": 0.404348,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "f1": {
+        "n": 2000,
+        "mean": 0.363079,
+        "median": 0.362812,
+        "ci_low": 0.308057,
+        "ci_high": 0.416667,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "specificity": {
+        "n": 2000,
+        "mean": 0.84533,
+        "median": 0.845209,
+        "ci_low": 0.81941,
+        "ci_high": 0.86855,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "balanced_accuracy": {
+        "n": 2000,
+        "mean": 0.594416,
+        "median": 0.594247,
+        "ci_low": 0.563235,
+        "ci_high": 0.626243,
+        "method": "bootstrap 百分位区间（95%）"
+      },
+      "n_boot": 2000,
+      "unit": "单条记录（行）",
+      "caveat": "按记录重抽；在本数据集上同一学生的两条记录会被分别计数，等于重复计数，区间偏窄。正式结果请用按学生整组重抽的口径。"
+    }
+  },
+  "paired_knn_vs_logreg": {
+    "accuracy": {
+      "n": 10,
+      "pair_a": "KNN",
+      "pair_b": "逻辑回归",
+      "mean_diff": -0.046335,
+      "std_diff": 0.013067,
+      "t": -11.2135,
+      "p_approx": 0.0,
+      "diff_ci95": [
+        -0.055681,
+        -0.036988
+      ],
+      "significant_at_0.05": true,
+      "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+    },
+    "precision": {
+      "n": 10,
+      "pair_a": "KNN",
+      "pair_b": "逻辑回归",
+      "mean_diff": -0.161192,
+      "std_diff": 0.047312,
+      "t": -10.7739,
+      "p_approx": 0.0,
+      "diff_ci95": [
+        -0.195035,
+        -0.127349
+      ],
+      "significant_at_0.05": true,
+      "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+    },
+    "recall": {
+      "n": 10,
+      "pair_a": "KNN",
+      "pair_b": "逻辑回归",
+      "mean_diff": 0.108703,
+      "std_diff": 0.044975,
+      "t": 7.6431,
+      "p_approx": 0.0,
+      "diff_ci95": [
+        0.076532,
+        0.140875
+      ],
+      "significant_at_0.05": true,
+      "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+    },
+    "f1": {
+      "n": 10,
+      "pair_a": "KNN",
+      "pair_b": "逻辑回归",
+      "mean_diff": 0.034838,
+      "std_diff": 0.034727,
+      "t": 3.1724,
+      "p_approx": 0.0015,
+      "diff_ci95": [
+        0.009998,
+        0.059678
+      ],
+      "significant_at_0.05": true,
+      "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+    }
+  },
+  "cross_check_vs_summary": {
+    "accuracy": {
+      "archived_mean": 0.74219,
+      "recomputed_mean": 0.74219,
+      "consistent": true
+    },
+    "precision": {
+      "archived_mean": 0.431205,
+      "recomputed_mean": 0.431205,
+      "consistent": true
+    },
+    "recall": {
+      "archived_mean": 0.373121,
+      "recomputed_mean": 0.373121,
+      "consistent": true
+    },
+    "f1": {
+      "archived_mean": 0.398424,
+      "recomputed_mean": 0.398424,
+      "consistent": true
+    }
+  }
+}

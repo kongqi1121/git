@@ -422,7 +422,7 @@ def run_uci_pipeline(backend: str = "auto", n_splits: int = cfg.N_SPLITS,
     ablation = early_grade_ablation(df, X_main, y, groups, main_k, seed=seed)
     summary["ablation_early_grades"] = ablation
     if verbose:
-        print("[7/7] 早期成绩消融对照（量化标签泄漏）：")
+        print("[7/8] 早期成绩消融对照（量化标签泄漏）：")
         for row in ablation:
             # 第三行（仅用 G2 单特征）只有 accuracy，其它指标为空字符串，需分别格式化
             def _fv(v, nd=4):
@@ -431,6 +431,39 @@ def run_uci_pipeline(backend: str = "auto", n_splits: int = cfg.N_SPLITS,
                   f"recall={_fv(row['logo_recall'])} accuracy={_fv(row['logo_accuracy'])}")
         print("      结论：加入 G1/G2 后指标大幅提升，但那是**标签泄漏**，"
               "真实预警场景中用不到（期中时还没有期末成绩）")
+
+    # ---------------- ⑧ 逻辑回归类别加权对照（建议 A4） ----------------
+    # 逻辑回归在当前配置下 recall 只有 0.2391，典型"偏向多数类"的表现。
+    # class_weight='balanced' 会按类别频率倒数加权损失，预期能显著提高 recall，
+    # 但会牺牲 precision —— 因此必须三指标并列报告，不能只报 recall 上升。
+    balanced = logreg_class_weight_ablation(df, X_main, y, backend=backend,
+                                            n_splits=n_splits, seed=seed)
+    summary["logreg_class_weight_ablation"] = balanced
+
+    # 同时把 balanced 版纳入 **LOGO 主口径** 复核 —— 
+    # 因为"是否更换主模型"这样的结论不能只靠 10 次划分，必须在主口径上同样成立。
+    logo_lr_bal = leave_one_group_out(X_main, y, groups, "logreg", backend=backend,
+                                      class_weight="balanced")
+    summary["logo_logreg_balanced"] = {k: v for k, v in logo_lr_bal.items()
+                                       if k != "proba_pos"}
+    balanced["logo_metrics"] = {k: round(float(v), 4) for k, v in
+                                logo_lr_bal["metrics"].items()}
+    balanced["logo_counts"] = logo_lr_bal["counts"]
+    # 主口径上的配对比较不便逐折做（LOGO 为确定性单次预测），
+    # 因此改用"混淆矩阵计数的差"与 bootstrap 区间来支撑结论（见 confidence_intervals.py）
+
+    if verbose:
+        print("[8/8] 逻辑回归类别加权对照（class_weight=None vs 'balanced'）：")
+        for row in balanced["table"]:
+            print(f"      {row['setting']:<28s} acc={row['accuracy']:.4f} "
+                  f"P={row['precision']:.4f} R={row['recall']:.4f} F1={row['f1']:.4f}"
+                  f"  名单人数={row['n_predicted_risk_mean']:.1f}")
+        lm = logo_lr_bal["metrics"]
+        print(f"      【LOGO 主口径复核】balanced: acc={lm['accuracy']:.4f} "
+              f"P={lm['precision']:.4f} R={lm['recall']:.4f} F1={lm['f1']:.4f}")
+        print(f"      【LOGO 主口径】主模型 KNN(k={main_k}): " + _fmt(logo_knn["metrics"]))
+        for line in balanced["conclusion"]:
+            print("      " + line)
 
     # ---------------- 保存 ----------------
     summary["elapsed_sec"] = round(time.time() - t0, 2)
@@ -457,6 +490,16 @@ def run_uci_pipeline(backend: str = "auto", n_splits: int = cfg.N_SPLITS,
         {"model": f"KNN(k={main_k})", "protocol": "课程外推 por→mat",
          **_r(cs_knn["por2mat"]["metrics"]), **cs_knn["por2mat"]["counts"]},
     ]
+    # 把 A4 的 balanced 逻辑回归（按 10 次分组划分均值）也纳入总表，
+    # 便于在同一张表里比较"是否值得用类别加权换取 recall"
+    for row in balanced["table"]:
+        if row["setting"].startswith("逻辑回归(balanced"):
+            rows.append({"model": "逻辑回归(balanced)",
+                         "protocol": f"{n_splits} 次分组随机划分（均值）",
+                         **{k: round(float(row[k]), 4) for k in
+                            ("accuracy", "precision", "recall", "f1")},
+                         "specificity": "", "balanced_accuracy": "",
+                         "TP": "", "TN": "", "FP": "", "FN": ""})
     table = pd.DataFrame(rows)
     for c in ("accuracy", "precision", "recall", "f1", "specificity", "balanced_accuracy"):
         if c in table.columns:
@@ -499,8 +542,133 @@ def run_uci_pipeline(backend: str = "auto", n_splits: int = cfg.N_SPLITS,
 
 
 # ======================================================================
-# 七、辅助：阈值调优与消融
+# 七、辅助：阈值调优、消融与类别加权对照
 # ======================================================================
+def logreg_class_weight_ablation(df: pd.DataFrame, X: np.ndarray, y: np.ndarray,
+                                 backend: str = "auto",
+                                 n_splits: int = cfg.N_SPLITS,
+                                 seed: int = cfg.RANDOM_SEED) -> Dict:
+    """
+    逻辑回归的类别加权对照（建议 A4）：`class_weight=None` vs `'balanced'`。
+
+    【为什么做这个实验】
+    逻辑回归在主口径下 recall 仅 **0.2391**（precision 0.5500）——
+    这是典型的"模型偏向多数类"（正类只占 22%）。
+    `class_weight='balanced'` 会按类别频率的倒数加权损失，
+    等价于把"漏报的代价"提高若干倍，正是为这种情形设计的。
+
+    【方法学纪律】
+      · 两个版本跑**完全相同的 10 次按学生分组划分**，便于配对比较；
+      · 报告时 **accuracy / precision / recall / F1 四项并列** ——
+        加权必然拉高 recall、压低 precision，只报 recall 上升是不诚实的；
+      · 用配对 t 检验判断差异是否可重复（同一次划分下相减），
+        而不是比较两个独立的均值。
+    """
+    try:
+        from . import config as cfg
+        from . import evaluate as ev
+        from .preprocess import StandardScaler
+        from .model_backends import make_logreg
+        from .uci_data import group_train_test_split_indices
+    except ImportError:  # pragma: no cover - 脚本直跑分支
+        import config as cfg
+        import evaluate as ev
+        from preprocess import StandardScaler
+        from model_backends import make_logreg
+        from uci_data import group_train_test_split_indices
+
+    variants = [("逻辑回归(class_weight=None)", None),
+                ("逻辑回归(balanced)", "balanced")]
+    per_variant: Dict[str, List[Dict]] = {name: [] for name, _ in variants}
+
+    for i in range(n_splits):
+        sd = seed + i
+        tr, te = group_train_test_split_indices(df, cfg.TEST_SIZE, sd)
+        sc = StandardScaler().fit(X[tr])
+        Xtr, Xte = sc.transform(X[tr]), sc.transform(X[te])
+        for name, cw in variants:
+            kw = {} if cw is None else {"class_weight": cw}
+            model = make_logreg(backend=backend, **kw).fit(Xtr, y[tr])
+            p = model.predict_proba(Xte)[:, 1]
+            pred = (p > 0.5).astype(int)
+            m = ev.evaluate_binary(y[te], pred)
+            per_variant[name].append({
+                "split": i + 1, "seed": sd,
+                "accuracy": m["accuracy"], "precision": m["precision"],
+                "recall": m["recall"], "f1": m["f1"],
+                "n_predicted_risk": int(m["TP"] + m["FP"]),
+                "TP": m["TP"], "FP": m["FP"], "FN": m["FN"], "TN": m["TN"],
+            })
+
+    rows = []
+    detail: Dict[str, List[Dict]] = {}
+    for name, runs in per_variant.items():
+        arr = pd.DataFrame(runs)
+        detail[name] = runs
+        row = {"setting": name, "n_splits": len(runs)}
+        for k in ("accuracy", "precision", "recall", "f1"):
+            row[k] = round(float(arr[k].mean()), 4)
+            row[f"{k}_std"] = round(float(arr[k].std(ddof=1)), 4)
+        row["n_predicted_risk_mean"] = round(float(arr["n_predicted_risk"].mean()), 1)
+        row["FN_mean"] = round(float(arr["FN"].mean()), 1)
+        row["FP_mean"] = round(float(arr["FP"].mean()), 1)
+        rows.append(row)
+
+    # 配对比较（同一次划分下相减）
+    try:
+        from .confidence_intervals import paired_comparison
+    except ImportError:  # pragma: no cover - 脚本直跑分支
+        from confidence_intervals import paired_comparison
+    a = detail[variants[1][0]]      # balanced
+    b = detail[variants[0][0]]      # default
+    paired = {}
+    for k in ("recall", "precision", "f1", "accuracy"):
+        paired[k] = paired_comparison(
+            np.array([r[k] for r in a]), np.array([r[k] for r in b]),
+            "balanced", "None")
+
+    # ---- 结论：如实陈述 ---- 
+    base = next(r for r in rows if r["setting"].endswith("None)"))
+    bal = next(r for r in rows if r["setting"].endswith("balanced)"))
+    conclusion = []
+    d_rec = bal["recall"] - base["recall"]
+    d_pre = bal["precision"] - base["precision"]
+    d_f1 = bal["f1"] - base["f1"]
+    conclusion.append(
+        f"recall 变化 {d_rec:+.4f}（{base['recall']:.4f} → {bal['recall']:.4f}），"
+        f"precision 变化 {d_pre:+.4f}（{base['precision']:.4f} → {bal['precision']:.4f}）")
+    conclusion.append(
+        f"F1 变化 {d_f1:+.4f}；名单人数 "
+        f"{base['n_predicted_risk_mean']:.1f} → {bal['n_predicted_risk_mean']:.1f}")
+    if paired["recall"]["p_approx"] < 0.05 and d_rec > 0:
+        conclusion.append(
+            "配对检验显示 recall 的提升是**可重复的**（p<0.05）—— "
+            "若辅导员人力允许更多复核工作量，balanced 版是更贴合预警目标的选择。")
+    else:
+        conclusion.append("配对检验未显示 recall 有显著提升，不建议仅因该项而改用 balanced。")
+    if d_pre < 0:
+        conclusion.append(
+            f"代价：precision 下降 {abs(d_pre):.4f}，意味着名单里误报比例上升；"
+            "是否采用取决于可投入的复核人力（见代价敏感分析 cost_sensitive.json）。")
+    # 与主模型 KNN 的横向对比提示
+    conclusion.append(
+        "提示：该结果需与主模型 KNN(k=1) 的 recall 0.3435 横向比较 —— "
+        "若 balanced 版 recall 更高，应把『主模型是否更换』作为真实结论重新讨论。")
+
+    out = {
+        "method": f"{n_splits} 次按学生分组随机划分，两版本同一批划分（配对设计）",
+        "table": rows,
+        "paired_balanced_vs_default": paired,
+        "detail": detail,
+        "conclusion": conclusion,
+        "note": "类别加权会同时改变 recall 与 precision，必须四项指标并列报告。",
+    }
+    pd.DataFrame(rows).to_csv(os.path.join(cfg.METRICS_DIR, "logreg_class_weight.csv"),
+                              index=False, encoding="utf-8-sig")
+    ev.save_json(out, os.path.join(cfg.METRICS_DIR, "logreg_class_weight.json"))
+    return out
+
+
 def _tune_threshold_within_training(df: pd.DataFrame, X: np.ndarray, y: np.ndarray,
                                     k: int, backend: str, n_splits: int = 10,
                                     seed: int = cfg.RANDOM_SEED) -> Dict:

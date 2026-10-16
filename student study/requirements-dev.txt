@@ -1,0 +1,15 @@
+# 开发/测试依赖（requirements-dev.txt）
+# =========================================================
+# 仅用于运行单元测试（tests/）与代码检查，**不参与主流程**。
+# 这样运行时依赖保持精简，避免把测试工具塞进交付环境。
+#
+# 安装：
+#     python -m pip install -r requirements.txt -r requirements-dev.txt
+#
+# 运行测试：
+#     python -m pytest tests -v
+# =========================================================
+
+-r requirements.txt
+
+pytest==8.3.4

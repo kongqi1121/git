@@ -1,0 +1,373 @@
+{
+  "protocol": "10 次按学生分组随机划分（7:3）；课程外推另表",
+  "main_k": 1,
+  "majority_baseline_accuracy": 0.7797,
+  "table": [
+    {
+      "model": "逻辑回归(balanced)",
+      "n_splits": 10,
+      "accuracy": 0.7182,
+      "accuracy_std": 0.0337,
+      "precision": 0.4242,
+      "precision_std": 0.035,
+      "recall": 0.6158,
+      "recall_std": 0.0469,
+      "f1": 0.5015,
+      "f1_std": 0.0339,
+      "fit_seconds_total": 0.04
+    },
+    {
+      "model": "高斯朴素贝叶斯",
+      "n_splits": 10,
+      "accuracy": 0.7582,
+      "accuracy_std": 0.0271,
+      "precision": 0.4776,
+      "precision_std": 0.0695,
+      "recall": 0.4945,
+      "recall_std": 0.0388,
+      "f1": 0.485,
+      "f1_std": 0.0526,
+      "fit_seconds_total": 0.01
+    },
+    {
+      "model": "KNN(k=1)",
+      "n_splits": 10,
+      "accuracy": 0.7422,
+      "accuracy_std": 0.0253,
+      "precision": 0.4312,
+      "precision_std": 0.0415,
+      "recall": 0.3731,
+      "recall_std": 0.0551,
+      "f1": 0.3984,
+      "f1_std": 0.0404,
+      "fit_seconds_total": 0.1
+    },
+    {
+      "model": "决策树(depth=4)",
+      "n_splits": 10,
+      "accuracy": 0.7912,
+      "accuracy_std": 0.0217,
+      "precision": 0.5955,
+      "precision_std": 0.0916,
+      "recall": 0.2949,
+      "recall_std": 0.0668,
+      "f1": 0.3907,
+      "f1_std": 0.0717,
+      "fit_seconds_total": 0.02
+    },
+    {
+      "model": "逻辑回归",
+      "n_splits": 10,
+      "accuracy": 0.7885,
+      "accuracy_std": 0.0181,
+      "precision": 0.5924,
+      "precision_std": 0.0564,
+      "recall": 0.2644,
+      "recall_std": 0.0416,
+      "f1": 0.3636,
+      "f1_std": 0.0431,
+      "fit_seconds_total": 0.04
+    },
+    {
+      "model": "线性SVM",
+      "n_splits": 10,
+      "accuracy": 0.7783,
+      "accuracy_std": 0.0213,
+      "precision": 0.5314,
+      "precision_std": 0.3979,
+      "recall": 0.062,
+      "recall_std": 0.0631,
+      "f1": 0.1066,
+      "f1_std": 0.1044,
+      "fit_seconds_total": 0.11
+    },
+    {
+      "model": "多数类基线(全判正常)",
+      "n_splits": 10,
+      "accuracy": 0.7797,
+      "accuracy_std": 0.0,
+      "precision": 0.0,
+      "precision_std": 0.0,
+      "recall": 0.0,
+      "recall_std": 0.0,
+      "f1": 0.0,
+      "f1_std": 0.0,
+      "fit_seconds_total": 0.0
+    }
+  ],
+  "cross_subject": [
+    {
+      "model": "KNN(k=1)",
+      "direction": "mat->por",
+      "accuracy": 0.661,
+      "precision": 0.2345,
+      "recall": 0.53,
+      "f1": 0.3252
+    },
+    {
+      "model": "逻辑回归",
+      "direction": "mat->por",
+      "accuracy": 0.7627,
+      "precision": 0.3151,
+      "recall": 0.46,
+      "f1": 0.374
+    },
+    {
+      "model": "逻辑回归(balanced)",
+      "direction": "mat->por",
+      "accuracy": 0.641,
+      "precision": 0.2392,
+      "recall": 0.61,
+      "f1": 0.3437
+    },
+    {
+      "model": "决策树(depth=4)",
+      "direction": "mat->por",
+      "accuracy": 0.7827,
+      "precision": 0.3481,
+      "recall": 0.47,
+      "f1": 0.4
+    },
+    {
+      "model": "高斯朴素贝叶斯",
+      "direction": "mat->por",
+      "accuracy": 0.7643,
+      "precision": 0.3552,
+      "recall": 0.65,
+      "f1": 0.4594
+    },
+    {
+      "model": "线性SVM",
+      "direction": "mat->por",
+      "accuracy": 0.849,
+      "precision": 0.5172,
+      "recall": 0.3,
+      "f1": 0.3797
+    },
+    {
+      "model": "KNN(k=1)",
+      "direction": "por->mat",
+      "accuracy": 0.7038,
+      "precision": 0.6857,
+      "recall": 0.1846,
+      "f1": 0.2909
+    },
+    {
+      "model": "逻辑回归",
+      "direction": "por->mat",
+      "accuracy": 0.6937,
+      "precision": 0.6286,
+      "recall": 0.1692,
+      "f1": 0.2667
+    },
+    {
+      "model": "逻辑回归(balanced)",
+      "direction": "por->mat",
+      "accuracy": 0.6759,
+      "precision": 0.5106,
+      "recall": 0.3692,
+      "f1": 0.4286
+    },
+    {
+      "model": "决策树(depth=4)",
+      "direction": "por->mat",
+      "accuracy": 0.681,
+      "precision": 0.6429,
+      "recall": 0.0692,
+      "f1": 0.125
+    },
+    {
+      "model": "高斯朴素贝叶斯",
+      "direction": "por->mat",
+      "accuracy": 0.6684,
+      "precision": 0.4941,
+      "recall": 0.3231,
+      "f1": 0.3907
+    },
+    {
+      "model": "线性SVM",
+      "direction": "por->mat",
+      "accuracy": 0.681,
+      "precision": 0.6,
+      "recall": 0.0923,
+      "f1": 0.16
+    }
+  ],
+  "paired_vs_main_model": {
+    "逻辑回归": {
+      "f1": {
+        "n": 10,
+        "pair_a": "逻辑回归",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.034838,
+        "std_diff": 0.034727,
+        "t": -3.1724,
+        "p_approx": 0.0015,
+        "diff_ci95": [
+          -0.059679,
+          -0.009998
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "recall": {
+        "n": 10,
+        "pair_a": "逻辑回归",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.108704,
+        "std_diff": 0.044975,
+        "t": -7.6431,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          -0.140875,
+          -0.076532
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    },
+    "逻辑回归(balanced)": {
+      "f1": {
+        "n": 10,
+        "pair_a": "逻辑回归(balanced)",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": 0.10303,
+        "std_diff": 0.034835,
+        "t": 9.353,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.078112,
+          0.127947
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "recall": {
+        "n": 10,
+        "pair_a": "逻辑回归(balanced)",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": 0.242659,
+        "std_diff": 0.048328,
+        "t": 15.8781,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.20809,
+          0.277229
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    },
+    "决策树(depth=4)": {
+      "f1": {
+        "n": 10,
+        "pair_a": "决策树(depth=4)",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.007773,
+        "std_diff": 0.075746,
+        "t": -0.3245,
+        "p_approx": 0.7455,
+        "diff_ci95": [
+          -0.061955,
+          0.046408
+        ],
+        "significant_at_0.05": false,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "recall": {
+        "n": 10,
+        "pair_a": "决策树(depth=4)",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.078199,
+        "std_diff": 0.072736,
+        "t": -3.3998,
+        "p_approx": 0.0007,
+        "diff_ci95": [
+          -0.130228,
+          -0.026171
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    },
+    "高斯朴素贝叶斯": {
+      "f1": {
+        "n": 10,
+        "pair_a": "高斯朴素贝叶斯",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": 0.086548,
+        "std_diff": 0.05225,
+        "t": 5.238,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.049173,
+          0.123923
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "recall": {
+        "n": 10,
+        "pair_a": "高斯朴素贝叶斯",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": 0.121405,
+        "std_diff": 0.05955,
+        "t": 6.4469,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          0.078809,
+          0.164002
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    },
+    "线性SVM": {
+      "f1": {
+        "n": 10,
+        "pair_a": "线性SVM",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.291775,
+        "std_diff": 0.103763,
+        "t": -8.8921,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          -0.365997,
+          -0.217552
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      },
+      "recall": {
+        "n": 10,
+        "pair_a": "线性SVM",
+        "pair_b": "KNN(k=1)",
+        "mean_diff": -0.311122,
+        "std_diff": 0.057131,
+        "t": -17.2211,
+        "p_approx": 0.0,
+        "diff_ci95": [
+          -0.351988,
+          -0.270256
+        ],
+        "significant_at_0.05": true,
+        "note": "配对 t 检验（两组跑的是同一批划分，故必须配对）；p 值为正态近似，n=10 时真实 p 会略大，边缘结果需谨慎解读"
+      }
+    }
+  },
+  "conclusion": [
+    "F1 最高的模型是「逻辑回归(balanced)」（F1=0.5015）。",
+    "⚠️ 该模型不是当前主模型「KNN(k=1)」，应据此评估是否需要更换主模型，而不是维持原选择。",
+    "recall 最高的模型是「逻辑回归(balanced)」（recall=0.6158）。",
+    "「逻辑回归(balanced)」accuracy 0.7182，低于多数类基线 0.7797（-0.0615）。",
+    "「高斯朴素贝叶斯」accuracy 0.7582，低于多数类基线 0.7797（-0.0215）。",
+    "「KNN(k=1)」accuracy 0.7422，低于多数类基线 0.7797（-0.0375）。",
+    "「决策树(depth=4)」accuracy 0.7912，高于多数类基线 0.7797（+0.0115）。",
+    "「逻辑回归」accuracy 0.7885，高于多数类基线 0.7797（+0.0088）。",
+    "「线性SVM」accuracy 0.7783，低于多数类基线 0.7797（-0.0014）。",
+    "在配对检验下 recall 显著优于主模型的模型：逻辑回归(balanced)(Δrecall=+0.2427)、高斯朴素贝叶斯(Δrecall=+0.1214)。因此『主模型选择』需要重新论证。",
+    "提醒：本项目样本有限（1044 条 / 230 个正类），差异小于约 0.03 的指标变化应结合配对区间判断，不宜只看点估计。"
+  ],
+  "note": "所有模型走同一批划分与同一套标准化流程；标准化器每折只 fit 训练集。选主模型应依据业务目标（预警场景 recall 优先）+ 区间是否分离，不应仅看分数高低。",
+  "disclaimer": "本系统为教学实验原型。主数据为 UCI 公开学术数据集（Student Performance, Cortez & Silva 2008, CC BY 4.0，已匿名化），对照数据为本项目生成的模拟数据。系统输出仅供教学演示与人工复核参考，不得用于任何真实学籍、评奖、评优或处分决策。"
+}

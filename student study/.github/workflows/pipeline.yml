@@ -1,0 +1,101 @@
+# GitHub Actions 全流程流水线（建议 D3 第二条）
+# =========================================================
+# 与 test.yml 的分工：
+#   test.yml     —— 每次 push 触发，只跑单测与编译，快（目标 2 分钟内）
+#   pipeline.yml —— **每日定时** + 手动触发，跑完整 `python main.py --auto`，
+#                   用于确认主流程没有被后续改动破坏，并归档一份指标快照。
+#
+# 【为什么不放在每次 push】完整流程含：668 折嵌套交叉验证（约 220 秒）、
+# 9 个 k 值的留一组交叉验证、6 张图表生成 —— 每次提交都跑会显著拖慢迭代。
+# =========================================================
+
+name: full-pipeline
+
+on:
+  schedule:
+    # 每天 02:00 UTC（北京时间 10:00）跑一次
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      run_nested_cv:
+        description: "是否运行嵌套交叉验证（约 220 秒，较慢）"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+jobs:
+  full-auto:
+    name: 完整流程（UCI 数据 + sklearn 主模型）
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: 缓存 UCI 原始数据
+        uses: actions/cache@v4
+        with:
+          path: data/uci_raw
+          key: uci-student-performance-mat-4dc304be-por-973e7bac
+
+      - name: 运行完整流程（约 30 秒）
+        run: python main.py --auto
+
+      - name: 追加：置信区间（离线计算）
+        run: python src/confidence_intervals.py
+
+      - name: 追加：模拟 vs 真实数据对照
+        run: python src/run_sim_compare.py
+
+      - name: 追加：嵌套交叉验证（可选）
+        if: ${{ github.event.inputs.run_nested_cv == 'true' }}
+        run: python src/nested_cv_v2.py
+
+      - name: 关键指标校验（防止主流程静默劣化）
+        run: |
+          python - <<'PY'
+          import json, sys, os
+          sys.path.insert(0, 'src')
+          import config as cfg
+
+          s = json.load(open(cfg.METRICS_SUMMARY_PATH, encoding='utf-8'))
+          m = s['logo_knn']['metrics']
+
+          # 只做"宽松的合理性断言"，不比对精确数值 —— 因为：
+          # ① 允许后续改进合理地改变指标；
+          # ② 环境差异（BLAS 版本等）可能带来末位浮动。
+          # 这里只为挡住"流程坏了但没人发现"这一类问题。
+          assert s['n_samples'] == 1044, '样本数异常: %s' % s['n_samples']
+          assert abs(s['risk_ratio'] - 0.2203) < 0.005, '高风险比例异常'
+          assert 0.0 < m['recall'] < 1.0 and 0.0 < m['f1'] < 1.0
+          assert 0.55 < s['majority_baseline_accuracy'] < 0.95, '基线异常'
+          print('主口径指标：F1=%.4f recall=%.4f accuracy=%.4f'
+                % (m['f1'], m['recall'], m['accuracy']))
+          print('多数类基线：%.4f' % s['majority_baseline_accuracy'])
+          print('指标合理性校验通过')
+          PY
+
+      - name: 上传结果快照
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-results
+          path: |
+            results/metrics/
+            results/figures/
+            results/full_run_log_v2.txt
+          retention-days: 30
+          if-no-files-found: warn

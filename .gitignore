@@ -63,3 +63,18 @@ Desktop.ini
 # ---------- 其它 ----------
 **/tmp_*.py
 **/scratch_*
+
+# ---------- 系统/工具生成文件（不属于项目，禁止提交） ----------
+# 说明：这些是本机 DSH 沙箱与诊断工具产生的内容，与项目无关。
+# 曾经因为 .gitignore 未覆盖而误提交（实测），故显式排除。
+driver-cleanup.ps1
+dsh-tone.wav
+dsh-acl-recovery/
+**/_probe*.txt
+**/_stage_*
+**/*.bak-before-*
+**/小结.docx
+
+# ---------- 临时工具脚本（用于文档批量修改，保留在本地但不入库） ----------
+**/tools/patch_*.py
+**/tools/write_helper.py
