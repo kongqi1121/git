@@ -78,3 +78,8 @@ dsh-acl-recovery/
 # ---------- 临时工具脚本（用于文档批量修改，保留在本地但不入库） ----------
 **/tools/patch_*.py
 **/tools/write_helper.py
+
+# ---------- 临时快照与恢复目录（用于历史整理，绝不入库） ----------
+.snapshot-restore/
+**/__pycache__/
+**/*.pyc
